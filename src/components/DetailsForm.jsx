@@ -128,7 +128,7 @@ const DetailsForm = () => {
   } = useForm();
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form form--information" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__inner">
         <div className="form__head">
           <div className="form__title-wrapper">
@@ -412,47 +412,58 @@ const DetailsForm = () => {
                 </div>
 
                 <div className="form__radio">
-                  <input
-                    type="radio"
-                    name="delivery"
-                    id="standard"
-                    value="standard"
-                    defaultChecked
-                    onChange={handleDeliveryChange}
-                  />
+                  <div className="form__group">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      id="standard"
+                      value="standard"
+                      defaultChecked
+                      onChange={handleDeliveryChange}
+                    />
 
-                  <label htmlFor="standard">
-                    Delivered: <span>Standard (3-6 working days)</span>{" "}
-                    <span className="gray">Standard</span>
-                    <span>
-                      €
-                      {selectedCountry.delivery.standard
-                        .toFixed(2)
-                        .replace(".", ",")}
-                    </span>
-                  </label>
+                    <label htmlFor="standard">
+                      <div className="form__radio-info">
+                        Delivered: <span>Standard (3-6 working days)</span>{" "}
+                        <span className="gray">Standard</span>
+                      </div>
+
+                      <span>
+                        €
+                        {selectedCountry.delivery.standard
+                          .toFixed(2)
+                          .replace(".", ",")}
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </>
               {selectedCountry.delivery.express && (
                 <div className="form__radio">
-                  <input
-                    type="radio"
-                    name="delivery"
-                    id="express"
-                    value="express"
-                    onChange={handleDeliveryChange}
-                  />
+                  <div className="form__group">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      id="express"
+                      value="express"
+                      onChange={handleDeliveryChange}
+                    />
 
-                  <label htmlFor="express">
-                    Delivered: <span>Delivery within 1 to 2 working days.</span>
-                    <span className="gray">Express</span>
-                    <span>
-                      €
-                      {selectedCountry.delivery.express
-                        .toFixed(2)
-                        .replace(".", ",")}
-                    </span>
-                  </label>
+                    <label htmlFor="express">
+                      <div className="form__radio-info">
+                        Delivered:{" "}
+                        <span>Delivery within 1 to 2 working days.</span>
+                        <span className="gray">Express</span>
+                      </div>
+
+                      <span>
+                        €
+                        {selectedCountry.delivery.express
+                          .toFixed(2)
+                          .replace(".", ",")}
+                      </span>
+                    </label>
+                  </div>
                 </div>
               )}{" "}
             </>
