@@ -1,0 +1,335 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
+      "type": "59FIFTY",
+      "color": "Green",
+      "price": 45.00,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/globalassets/products/d09_397/60580490/oakland-athletics-mlb-zodiac-dark-green-59fifty-fitted-cap-60580490-left.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
+      "type": "59FIFTY",
+      "color": "Green",
+      "price": 45.00,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/globalassets/products/d09_397/60580490/oakland-athletics-mlb-zodiac-dark-green-59fifty-fitted-cap-60580490-left.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
+      "type": "59FIFTY",
+      "color": "Green",
+      "price": 45.00,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/globalassets/products/d09_397/60580490/oakland-athletics-mlb-zodiac-dark-green-59fifty-fitted-cap-60580490-left.jpg"
+    }
+  ],
+  "promoCodes": [
+    { "name": "SUMMER10", "discount": 10 },
+    { "name": "SAVE20", "discount": 20 },
+    { "name": "DEAL50", "discount": 50 }
+  ],
+  "countries": [
+    {
+      "name": "France",
+      "delivery": {
+        "standard": 4.00,
+        "express": 12.00
+      },
+      "fallback": true
+    },
+    {
+      "name": "Germany",
+      "delivery": {
+        "standard": 5.00,
+        "express": 15.00
+      }
+    },
+    {
+      "name": "Spain",
+      "delivery": {
+        "standard": 6.00,
+        "express": 14.00
+      }
+    },
+    {
+      "name": "Italy",
+      "delivery": {
+        "standard": 4.00,
+        "express": 11.00
+      }
+    },
+    {
+      "name": "Portugal",
+      "delivery": {
+        "standard": 5.00,
+        "express": 13.00
+      }
+    },
+    {
+      "name": "Netherlands",
+      "delivery": {
+        "standard": 6.00,
+        "express": 16.00
+      }
+    },
+    {
+      "name": "Belgium",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Austria",
+      "delivery": {
+        "standard": 4.00,
+        "express": 12.00
+      }
+    },
+    {
+      "name": "Sweden",
+      "delivery": {
+        "standard": 5.00,
+        "express": 15.00
+      }
+    },
+    {
+      "name": "Norway",
+      "delivery": {
+        "standard": 6.00,
+        "express": 14.00
+      }
+    },
+    {
+      "name": "Denmark",
+      "delivery": {
+        "standard": 4.00,
+        "express": 13.00
+      }
+    },
+    {
+      "name": "Finland",
+      "delivery": {
+        "standard": 5.00,
+        "express": 16.00
+      }
+    },
+    {
+      "name": "Poland",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Czech Republic",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Hungary",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Greece",
+      "delivery": {
+        "standard": 5.00
+      }
+    },
+    {
+      "name": "Ireland",
+      "delivery": {
+        "standard": 6.00,
+        "express": 14.00
+      }
+    },
+    {
+      "name": "Luxembourg",
+      "delivery": {
+        "standard": 4.00,
+        "express": 12.00
+      }
+    },
+    {
+      "name": "Bulgaria",
+      "delivery": {
+        "standard": 5.00
+      }
+    },
+    {
+      "name": "Romania",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Croatia",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Slovenia",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Slovakia",
+      "delivery": {
+        "standard": 5.00
+      }
+    },
+    {
+      "name": "Latvia",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Estonia",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Lithuania",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Switzerland",
+      "delivery": {
+        "standard": 5.00,
+        "express": 15.00
+      }
+    },
+    {
+      "name": "Serbia",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Bosnia and Herzegovina",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Montenegro",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "North Macedonia",
+      "delivery": {
+        "standard": 5.00
+      }
+    },
+    {
+      "name": "Albania",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Kosovo",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Iceland",
+      "delivery": {
+        "standard": 5.00,
+        "express": 15.00
+      }
+    },
+    {
+      "name": "Moldova",
+      "delivery": {
+        "standard": 4.00
+      }
+    },
+    {
+      "name": "Ukraine",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Belarus",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Russia",
+      "delivery": {
+        "standard": 6.00,
+        "express": 14.00
+      }
+    },
+    {
+      "name": "Malta",
+      "delivery": {
+        "standard": 4.00,
+        "express": 12.00
+      }
+    },
+    {
+      "name": "Cyprus",
+      "delivery": {
+        "standard": 5.00,
+        "express": 13.00
+      }
+    },
+    {
+      "name": "Turkey",
+      "delivery": {
+        "standard": 6.00,
+        "express": 16.00
+      }
+    },
+    {
+      "name": "San Marino",
+      "delivery": {
+        "standard": 3.00
+      }
+    },
+    {
+      "name": "Monaco",
+      "delivery": {
+        "standard": 4.00,
+        "express": 12.00
+      }
+    },
+    {
+      "name": "Andorra",
+      "delivery": {
+        "standard": 5.00
+      }
+    },
+    {
+      "name": "Liechtenstein",
+      "delivery": {
+        "standard": 6.00
+      }
+    },
+    {
+      "name": "Vatican City",
+      "delivery": {
+        "standard": 3.00
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+.btn {
+  background-color: #167e72;
+  border: none;
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 28px;
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.btn--small {
+  min-width: 200px;
+  width: auto;
+}

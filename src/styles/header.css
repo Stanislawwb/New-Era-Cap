@@ -1,0 +1,36 @@
+/* ------------------------------------------------------------ *\
+	Header
+\* ------------------------------------------------------------ */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 23px 32px;
+
+  .header__access {
+    margin-left: auto;
+  }
+
+  .header__access {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #999;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -1.05px;
+  }
+
+  .header__access p {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px;
+  }
+}

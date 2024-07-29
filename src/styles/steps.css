@@ -1,0 +1,71 @@
+.steps {
+  padding: 40px 0;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    font-size: 16px;
+  }
+
+  ul li span {
+    font-size: 16px;
+  }
+
+  li {
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+  }
+
+  li span {
+    background-color: #fff;
+    color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    border: 1px solid #000;
+
+    &.is-active,
+    &.is-checked {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+
+  span i {
+    font-size: 14px;
+  }
+
+  li + li {
+    margin-left: 30px;
+  }
+
+  @media (max-width: 768px) {
+    li {
+      font-size: 14px;
+    }
+
+    li + li {
+      margin-left: 15px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    ul li {
+      font-size: 0;
+      gap: 0;
+    }
+
+    ul li span {
+      font-size: 16x;
+    }
+  }
+}

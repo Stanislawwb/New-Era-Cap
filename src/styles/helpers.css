@@ -1,0 +1,14 @@
+.required {
+  color: #b52025;
+  font-weight: 700;
+}
+
+.gray {
+  color: rgb(102, 102, 102);
+}
+
+.error {
+  color: #b52025;
+  font-weight: 700;
+  font-size: 14px;
+}

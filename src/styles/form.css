@@ -1,0 +1,262 @@
+.form {
+  label {
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  input::placeholder {
+    color: #cecece;
+  }
+
+  .form__inner {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 3px 8px;
+    padding: 48px 73px;
+  }
+
+  .form__head {
+    margin-bottom: 40px;
+  }
+
+  .form__body {
+    margin-bottom: 40px;
+  }
+
+  .form__body button {
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    margin-bottom: 20px;
+  }
+
+  .form__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .form__title-wrapper p {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .form__row {
+    margin-bottom: 10px;
+  }
+
+  .form__row--flex {
+    display: flex;
+    gap: 15px;
+  }
+
+  .form__row input,
+  .form__row select {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 16px;
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: #000;
+    }
+  }
+
+  .form__row select {
+    appearance: none;
+  }
+
+  .form__select {
+    position: relative;
+  }
+
+  .form__select:after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 42%;
+    transform: rotate(45deg) translateY(-42%);
+    width: 0;
+    height: 0;
+    border: solid #eaeaea;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+  }
+
+  .form__select:has(select:focus):after {
+    border-color: #000;
+  }
+
+  .form__row label {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .form__checkbox input {
+    display: none;
+  }
+
+  .form__checkbox label {
+    display: block;
+    padding-left: 30px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .form__checkbox label:hover:before {
+    border-color: #000;
+  }
+
+  .form__checkbox label:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid #eaeaea;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+  }
+
+  .form__checkbox input:checked + label:before {
+    background-color: #000;
+  }
+
+  .form__checkbox label:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: 4px;
+    height: 9px;
+    rotate: 45deg;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+  }
+
+  .form__foot .form__group {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    transition: border-color 0.3s;
+  }
+
+  .form__foot .form__group:hover {
+    border-color: #000;
+  }
+
+  .form__foot .form__group:has(input:checked) {
+    border-color: #000;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 1px;
+  }
+
+  .form__foot .form__group + .form__group {
+    margin-top: 10px;
+  }
+
+  .form__foot .form__group:has(input[type="radio"]) > input {
+    appearance: none;
+    display: none;
+  }
+
+  .form__foot .form__group:has(input[type="radio"]) > label {
+    font-size: 16px;
+    position: relative;
+    padding: 30px 20px 30px 64px;
+    display: block;
+  }
+
+  .form__foot .form__row {
+    padding: 0 22px;
+  }
+
+  .form__foot .form__group:has(input[type="radio"]) > label:after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #cecece;
+    transition: border-color 0.3s;
+  }
+
+  .form__foot
+    .form__group:has(input[type="radio"])
+    > input:checked
+    ~ label:after {
+    border-color: #000;
+  }
+
+  .form__foot .form__group:has(input[type="radio"]) > label:before {
+    content: "";
+    position: absolute;
+    left: 29px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: background-color 0.3s;
+  }
+
+  .form__foot
+    .form__group:has(input[type="radio"])
+    > input:checked
+    ~ label:before {
+    background-color: #000;
+  }
+
+  .form__foot .form__group .form__foot .form__group span {
+    font-weight: 700;
+  }
+
+  .form__foot .form__group:has(input[type="radio"]) > label span {
+    display: block;
+    font-weight: 700;
+  }
+
+  .form__foot .form__group label span:first-of-type {
+    margin-top: 3px;
+  }
+
+  .form__foot .form__group label span + span {
+    margin-top: 10px;
+  }
+
+  .form__foot .form__content-wrapper {
+    flex: 1;
+  }
+
+  .form__notes {
+    background-color: rgb(246, 246, 246);
+    padding: 24px 24px 44px;
+    border-radius: 4px;
+    margin: 30px 0 50px;
+    word-break: break-all;
+  }
+
+  .form__notes a {
+    color: #000;
+  }
+
+  .form__notes p {
+    line-height: 1.5;
+  }
+
+  .form__notes p + p {
+    margin-top: 30px;
+  }
+}
