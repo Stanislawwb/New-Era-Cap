@@ -4,59 +4,22 @@ import { FormContext } from "./FormContext";
 import { useLocation } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "./useSectionHeight";
+import useFetchProducts from "./useFetchProducts";
+import usePromoCode from "./usePromoCode";
 
 const Sidebar = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { products, loading } = useFetchProducts();
+  const { promoCodes, appliedPromoCode, applyPromoCode, error } =
+    usePromoCode();
+
   const [subTotal, setSubTotal] = useState(0);
-  const [appliedPromoCode, setAppliedPromoCode] = useState(null);
+  const [promoCodeValue, setPromoCodeValue] = useState("");
 
   const { deliveryInfo, promoCode, setPromoCode, total, setTotal } =
     useContext(FormContext);
 
-  const [promoCodes, setPromoCodes] = useState([]);
-  const [error, setError] = useState(false);
-
   const location = useLocation();
   const { formData } = useContext(FormContext);
-
-  useEffect(() => {
-    const fetchingData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/products");
-
-        if (!response.ok) {
-          throw new Error("Bad response");
-        }
-
-        const data = await response.json();
-
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error", error);
-        setLoading(false);
-      }
-
-      try {
-        const promoCodesResponse = await fetch(
-          "http://localhost:3000/promoCodes"
-        );
-
-        if (!promoCodesResponse.ok) {
-          throw new Error("Bad Response");
-        }
-
-        const promoCodesData = await promoCodesResponse.json();
-
-        setPromoCodes(promoCodesData);
-      } catch (error) {
-        console.log("Error", error);
-      }
-    };
-
-    fetchingData();
-  }, []);
 
   // Subtotal Calculation
   useEffect(() => {
@@ -85,7 +48,7 @@ const Sidebar = () => {
     }
 
     setTotal(finalTotal.toFixed(2));
-  }, [products, deliveryInfo.price, appliedPromoCode]);
+  }, [products, deliveryInfo.price, appliedPromoCode, promoCodes, subTotal]);
 
   // Accordions Height
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -97,22 +60,11 @@ const Sidebar = () => {
     useSectionHeight(isPromoCodeOpen);
 
   // Promo Code
-  const [promoCodeValue, setPromoCodeValue] = useState("");
 
   const handlePromoCode = (event) => {
     setPromoCodeValue(event.target.value);
   };
 
-  const applyPromoCode = () => {
-    setError(false);
-
-    if (promoCodes.find((code) => code.name === promoCodeValue)) {
-      setAppliedPromoCode(promoCodeValue);
-    } else {
-      setError(true);
-      console.log("Invalid promo code");
-    }
-  };
   return (
     <div className="sidebar">
       <div className="sidebar__inner">
@@ -205,7 +157,7 @@ const Sidebar = () => {
               <button
                 type="button"
                 disabled={promoCodeValue === ""}
-                onClick={applyPromoCode}
+                onClick={() => applyPromoCode(promoCodeValue)}
               >
                 Apply
               </button>
