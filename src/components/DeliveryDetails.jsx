@@ -1,5 +1,4 @@
 const DeliveryDetails = ({ details, deliveryMethod }) => {
-  console.log(deliveryMethod);
   return (
     <div className="sidebar__details">
       <h3>Delivery Details</h3>

@@ -9,46 +9,38 @@ import usePromoCode from "./usePromoCode";
 
 const Sidebar = () => {
   const { products, loading } = useFetchProducts();
-  const { promoCodes, appliedPromoCode, applyPromoCode, error } =
-    usePromoCode();
+  const { applyPromoCode, error } = usePromoCode();
 
   const [subTotal, setSubTotal] = useState(0);
   const [promoCodeValue, setPromoCodeValue] = useState("");
 
-  const { deliveryInfo, promoCode, setPromoCode, total, setTotal } =
-    useContext(FormContext);
+  const { deliveryInfo, total, setTotal } = useContext(FormContext);
 
   const location = useLocation();
   const { formData } = useContext(FormContext);
 
-  // Subtotal Calculation
   useEffect(() => {
-    setSubTotal(
-      products.reduce((acc, product) => acc + product.price, 0).toFixed(2)
-    );
+    let finalTotal = products
+      .reduce((acc, product) => acc + product.price, 0)
+      .toFixed(2);
+
+    setSubTotal(finalTotal);
   }, [products]);
 
-  // Total Calculation
+  // Subtotal and total Calculation
   useEffect(() => {
-    let finalTotal = parseFloat(subTotal);
-
-    if (appliedPromoCode) {
-      const promoCode = promoCodes.find(
-        (code) => code.name === appliedPromoCode
-      );
-
-      if (promoCode) {
-        const discountAmount = (subTotal * promoCode.discount) / 100;
-        finalTotal = subTotal - discountAmount;
-      }
+    if (total > 0) {
+      return;
     }
+
+    let finalTotal = subTotal;
 
     if (finalTotal < 50) {
       finalTotal += parseFloat(deliveryInfo.price);
     }
 
-    setTotal(finalTotal.toFixed(2));
-  }, [products, deliveryInfo.price, appliedPromoCode, promoCodes, subTotal]);
+    setTotal(finalTotal);
+  }, [subTotal]);
 
   // Accordions Height
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -157,7 +149,7 @@ const Sidebar = () => {
               <button
                 type="button"
                 disabled={promoCodeValue === ""}
-                onClick={() => applyPromoCode(promoCodeValue)}
+                onClick={() => applyPromoCode(promoCodeValue, subTotal)}
               >
                 Apply
               </button>

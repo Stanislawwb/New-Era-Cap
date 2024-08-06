@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { FormContext } from "./FormContext";
 
 const usePromoCode = () => {
   const [promoCodes, setPromoCodes] = useState([]);
-  const [appliedPromoCode, setAppliedPromoCode] = useState(null);
   const [error, setError] = useState(false);
+
+  const { deliveryInfo, setTotal } = useContext(FormContext);
 
   useEffect(() => {
     const fetchPromoCodes = async () => {
@@ -20,16 +22,26 @@ const usePromoCode = () => {
     fetchPromoCodes();
   }, []);
 
-  const applyPromoCode = (code) => {
+  const applyPromoCode = (appliedPromoCode, subTotal) => {
     setError(false);
-    if (promoCodes.some((promo) => promo.name === code)) {
-      setAppliedPromoCode(code);
-    } else {
-      setError(true);
+
+    let finalTotal = parseFloat(subTotal);
+
+    if (finalTotal < 50) {
+      finalTotal += parseFloat(deliveryInfo.price);
     }
+
+    const promoCode = promoCodes.find((code) => code.name === appliedPromoCode);
+
+    if (promoCode) {
+      const discountAmount = (subTotal * promoCode.discount) / 100;
+      finalTotal = subTotal - discountAmount;
+    }
+
+    setTotal(finalTotal.toFixed(2));
   };
 
-  return { promoCodes, appliedPromoCode, applyPromoCode, error };
+  return { promoCodes, applyPromoCode, error };
 };
 
 export default usePromoCode;

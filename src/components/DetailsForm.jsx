@@ -42,6 +42,8 @@ const DetailsForm = () => {
     }));
   };
 
+  console.log(selectedCountry);
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -78,6 +80,7 @@ const DetailsForm = () => {
 
         if (country) {
           setSelectedCountry(country);
+
           setDeliveryInfo((prevDeliveryInfo) => ({
             ...prevDeliveryInfo,
             price: country.delivery.standard,
@@ -182,9 +185,9 @@ const DetailsForm = () => {
               <div className="form__select">
                 <select
                   id="country"
+                  {...register("country")}
                   onChange={handleCountryChange}
                   value={selectedCountry ? selectedCountry.name : ""}
-                  {...register("country")}
                 >
                   {countries.map((country) => (
                     <option key={country.name} value={country.name}>
