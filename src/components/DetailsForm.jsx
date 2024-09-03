@@ -42,8 +42,6 @@ const DetailsForm = () => {
     }));
   };
 
-  console.log(selectedCountry);
-
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -120,6 +118,7 @@ const DetailsForm = () => {
 
   const onSubmit = (data) => {
     setFormData(data);
+
     navigate("/payment");
   };
 
