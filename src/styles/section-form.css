@@ -3,6 +3,14 @@
   grid-template-columns: 65% auto;
   gap: 16px;
   padding-bottom: 96px;
+
+  button {
+    cursor: pointer;
+  }
+
+  .form__foot {
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 1023px) {

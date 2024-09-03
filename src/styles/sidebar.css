@@ -42,6 +42,8 @@
 
   .sidebar__foot {
     padding: 32px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
   }
 
   .sidebar__row {
@@ -180,5 +182,19 @@
     background-color: #000;
   }
 
-  /* Promo Code */
+  .sidebar__delivery-info {
+    padding: 32px;
+    border-top: 1px solid #ccc;
+  }
+
+  .sidebar__delivery-info h3 {
+    margin-bottom: 7px;
+  }
+  .sidebar__delivery-info p + p {
+    margin-top: 5px;
+  }
+
+  .sidebar__delivery-details {
+    margin-bottom: 20px;
+  }
 }

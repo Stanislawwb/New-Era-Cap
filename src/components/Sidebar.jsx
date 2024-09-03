@@ -201,7 +201,7 @@ const Sidebar = () => {
                     <p>{product.name}</p>
                     <span>Colour: {product.color}</span>
                     <span>Size: {product.size}</span>
-                    Qty: <span>Qty: {product.color}</span>
+
                     <b>
                       {product.currency}
                       {product.price.toFixed(2).replace(".", ",")}
