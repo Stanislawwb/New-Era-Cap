@@ -15,4 +15,4 @@ This template provides a minimal setup to get React working in Vite with HMR and
 1. Start the Vite server for React:
     - **npm run dev**
 2. Start the JSON server to provide mock data:
-    - **npx json-server --watch db.json --port 8000**
+    - **npx json-server --watch db.json --port 3000**
