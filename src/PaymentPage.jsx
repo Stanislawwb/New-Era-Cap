@@ -1,6 +1,6 @@
 import Steps from "./components/Steps";
 import Sidebar from "./components/Sidebar";
-import CheckoutForm from "./components/CheckoutForm";
+import PaymentForm from "./components/PaymentForm";
 
 const PaymentPage = () => {
   return (
@@ -9,7 +9,7 @@ const PaymentPage = () => {
         <Steps />
 
         <div className="section-form">
-          <CheckoutForm />
+          <PaymentForm />
 
           <Sidebar />
         </div>
