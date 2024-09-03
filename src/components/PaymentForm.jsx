@@ -10,6 +10,7 @@ import {
 
 import { useForm } from "react-hook-form";
 import { FormContext } from "./FormContext";
+import { useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe(
   "pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn"
@@ -17,6 +18,8 @@ const stripePromise = loadStripe(
 
 const PaymentForm = () => {
   const [isCardChecked, setIsCardChecked] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
