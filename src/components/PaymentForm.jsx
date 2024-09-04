@@ -133,7 +133,7 @@ const PaymentForm = () => {
 };
 
 const Payment = () => (
-  <Elements stripe={stripePromise}>
+  <Elements stripe={stripePromise} options={{ locale: "en" }}>
     <PaymentForm />
   </Elements>
 );
