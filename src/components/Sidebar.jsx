@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { FormContext } from "./FormContext";
 import { useLocation } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "./useSectionHeight";
@@ -11,36 +10,60 @@ const Sidebar = () => {
   const { products, loading } = useFetchProducts();
   const { applyPromoCode, error } = usePromoCode();
 
-  const [subTotal, setSubTotal] = useState(0);
-  const [promoCodeValue, setPromoCodeValue] = useState("");
+  const [subTotal, setSubTotal] = useState(
+    parseFloat(sessionStorage.getItem("subTotal")) || 0
+  );
+  const [promoCodeValue, setPromoCodeValue] = useState(
+    sessionStorage.getItem("promoCode") || ""
+  );
 
-  const { deliveryInfo, total, setTotal } = useContext(FormContext);
+  const [total, setTotal] = useState(
+    parseFloat(sessionStorage.getItem("total")).toFixed(2) || 0
+  );
 
   const location = useLocation();
-  const { formData } = useContext(FormContext);
+
+  const [formData, setFormData] = useState(
+    JSON.parse(sessionStorage.getItem("formData")) || {}
+  );
+  const [deliveryInfo, setDeliveryInfo] = useState(
+    JSON.parse(sessionStorage.getItem("deliveryInfo")) || { price: 0 }
+  );
 
   useEffect(() => {
     let finalTotal = products
       .reduce((acc, product) => acc + product.price, 0)
       .toFixed(2);
 
-    setSubTotal(finalTotal);
+    setSubTotal(parseFloat(finalTotal).toFixed(2));
   }, [products]);
 
-  // Subtotal and total Calculation
   useEffect(() => {
     if (total > 0) {
       return;
     }
 
-    let finalTotal = subTotal;
+    let finalTotal = parseFloat(subTotal);
 
     if (finalTotal < 50) {
       finalTotal += parseFloat(deliveryInfo.price);
     }
 
-    setTotal(finalTotal);
-  }, [subTotal]);
+    setTotal(finalTotal.toFixed(2));
+    sessionStorage.setItem("total", finalTotal.toFixed(2));
+  }, [subTotal, deliveryInfo]);
+
+  const handlePromoCode = (event) => {
+    const code = event.target.value;
+    setPromoCodeValue(code);
+    sessionStorage.setItem("promoCode", code);
+  };
+
+  const handleApplyPromoCode = () => {
+    applyPromoCode(promoCodeValue, subTotal);
+    const updatedTotal = parseFloat(sessionStorage.getItem("total")) || 0;
+    setTotal(updatedTotal);
+  };
 
   // Accordions Height
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -50,12 +73,6 @@ const Sidebar = () => {
     useSectionHeight(isCartOpen);
   const { sectionHeight: promoCodeHeight, sectionRef: promoCodeRef } =
     useSectionHeight(isPromoCodeOpen);
-
-  // Promo Code
-
-  const handlePromoCode = (event) => {
-    setPromoCodeValue(event.target.value);
-  };
 
   return (
     <div className="sidebar">
@@ -149,7 +166,7 @@ const Sidebar = () => {
               <button
                 type="button"
                 disabled={promoCodeValue === ""}
-                onClick={() => applyPromoCode(promoCodeValue, subTotal)}
+                onClick={handleApplyPromoCode}
               >
                 Apply
               </button>

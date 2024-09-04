@@ -9,7 +9,6 @@ import {
 } from "@stripe/react-stripe-js";
 
 import { useForm } from "react-hook-form";
-import { FormContext } from "./FormContext";
 import { useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe(
@@ -27,7 +26,9 @@ const PaymentForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { formData, deliveryInfo, total } = useContext(FormContext);
+  const formData = JSON.parse(sessionStorage.getItem("formData"));
+  const deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo"));
+  const total = JSON.parse(sessionStorage.getItem("total"));
 
   const stripe = useStripe();
   const elements = useElements();
@@ -52,7 +53,7 @@ const PaymentForm = () => {
     } else {
       const paymentData = {
         paymentMethodId: paymentMethod.id,
-        amount: total,
+        amount: parseFloat(total).toFixed(2),
         currency: "EUR",
         items: formData.products,
         deliveryInfo,
@@ -73,6 +74,8 @@ const PaymentForm = () => {
         }
 
         const result = await response.json();
+
+        sessionStorage.clear();
 
         navigate("/");
       } catch (error) {

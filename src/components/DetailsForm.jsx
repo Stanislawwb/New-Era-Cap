@@ -1,45 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FormContext } from "./FormContext";
 import { useForm } from "react-hook-form";
 
 const DetailsForm = () => {
   const [isManualAddress, setIsManualAddress] = useState(false);
   const [showCompany, setShowCompany] = useState(false);
   const [showAddressLine2, setShowAddressLine2] = useState(false);
-  const { setFormData, setDeliveryInfo } = useContext(FormContext);
-  const navigate = useNavigate();
-
   const [countries, setCountries] = useState([]);
-
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const navigate = useNavigate();
 
   const handleCountryChange = (e) => {
     const countryName = e.target.value;
-
     const country = countries.find((c) => c.name === countryName);
-
     setSelectedCountry(country);
 
-    setDeliveryInfo((prevDeliveryInfo) => ({
-      ...prevDeliveryInfo,
+    const deliveryInfo = {
+      method: "standard",
       price: country.delivery.standard,
-    }));
+    };
+    sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
   };
 
   const handleDeliveryChange = (e) => {
     const method = e.target.value;
-
     const price =
       method === "standard"
         ? selectedCountry.delivery.standard
         : selectedCountry.delivery.express || 0;
 
-    setDeliveryInfo((prevDeliveryInfo) => ({
-      ...prevDeliveryInfo,
+    const deliveryInfo = {
       method,
       price,
-    }));
+    };
+    sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
   };
 
   useEffect(() => {
@@ -79,33 +73,34 @@ const DetailsForm = () => {
         if (country) {
           setSelectedCountry(country);
 
-          setDeliveryInfo((prevDeliveryInfo) => ({
-            ...prevDeliveryInfo,
+          const deliveryInfo = {
+            method: "standard",
             price: country.delivery.standard,
-          }));
+          };
+          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
         } else {
           const fallbackCountry = countries.find((country) => country.fallback);
           setSelectedCountry(fallbackCountry);
 
-          setDeliveryInfo((prevDeliveryInfo) => ({
-            ...prevDeliveryInfo,
+          const deliveryInfo = {
+            method: "standard",
             price: fallbackCountry.delivery.standard,
-          }));
+          };
+          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
 
           console.log(
             `Country "${userCountry}" not found in the fetched countries.`
           );
         }
       } catch (error) {
-        // Fallback logic in case of error
-
         const fallbackCountry = countries.find((country) => country.fallback);
         setSelectedCountry(fallbackCountry);
 
-        setDeliveryInfo((prevDeliveryInfo) => ({
-          ...prevDeliveryInfo,
+        const deliveryInfo = {
+          method: "standard",
           price: fallbackCountry.delivery.standard,
-        }));
+        };
+        sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
 
         console.error("Error fetching user country:", error);
       }
@@ -114,15 +109,13 @@ const DetailsForm = () => {
     if (countries.length > 0) {
       fetchUserCountry();
     }
-  }, [countries, setDeliveryInfo]);
+  }, [countries]);
 
   const onSubmit = (data) => {
-    setFormData(data);
-
+    sessionStorage.setItem("formData", JSON.stringify(data));
     navigate("/payment");
   };
 
-  // Form Validation
   const {
     register,
     handleSubmit,

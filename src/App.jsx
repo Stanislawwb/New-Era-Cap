@@ -2,20 +2,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InformationPage from "./InformationPage";
 import PaymentPage from "./PaymentPage";
 import Header from "./components/Header";
-import { FormProvider } from "./components/FormContext";
 
 function App() {
   return (
-    <FormProvider>
-      <Router>
-        <Header />
+    <Router>
+      <Header />
 
-        <Routes>
-          <Route path="/" element={<InformationPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
-        </Routes>
-      </Router>
-    </FormProvider>
+      <Routes>
+        <Route path="/" element={<InformationPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+      </Routes>
+    </Router>
   );
 }
 
