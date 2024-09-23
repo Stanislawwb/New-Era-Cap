@@ -101,7 +101,18 @@
   }
 
   .form__checkbox input {
-    display: none;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  .form__checkbox input:focus + label:before {
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
   }
 
   .form__checkbox label {
@@ -130,6 +141,14 @@
 
   .form__checkbox input:checked + label:before {
     background-color: #000;
+  }
+
+  .form__checkbox input:checked + label:after {
+    display: block;
+  }
+
+  .form__checkbox input + label:after {
+    display: none;
   }
 
   .form__checkbox label:after {
