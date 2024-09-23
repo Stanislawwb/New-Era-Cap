@@ -8,7 +8,10 @@ import usePromoCode from "./usePromoCode";
 
 const Sidebar = () => {
   const { products, loading } = useFetchProducts();
-  const { applyPromoCode, error } = usePromoCode();
+
+  const [error, setError] = useState(false);
+
+  const { applyPromoCode, removePromoCode } = usePromoCode();
 
   const [subTotal, setSubTotal] = useState(
     parseFloat(sessionStorage.getItem("subTotal")) || 0
@@ -17,18 +20,19 @@ const Sidebar = () => {
     sessionStorage.getItem("promoCode") || ""
   );
 
-  const [total, setTotal] = useState(
-    parseFloat(sessionStorage.getItem("total")).toFixed(2) || 0
-  );
+  // sessionStorage.clear();
+
+  const [total, setTotal] = useState(sessionStorage.getItem("total") || 0);
 
   const location = useLocation();
 
-  const [formData, setFormData] = useState(
-    JSON.parse(sessionStorage.getItem("formData")) || {}
-  );
-  const [deliveryInfo, setDeliveryInfo] = useState(
-    JSON.parse(sessionStorage.getItem("deliveryInfo")) || { price: 0 }
-  );
+  const formData = JSON.parse(sessionStorage.getItem("formData")) || {};
+  const deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo")) || {
+    price: 0,
+  };
+
+  const codeName = sessionStorage.getItem("codeName");
+  const codeAmount = Number(sessionStorage.getItem("codeAmount")).toFixed(2);
 
   useEffect(() => {
     let finalTotal = products
@@ -39,15 +43,17 @@ const Sidebar = () => {
   }, [products]);
 
   useEffect(() => {
-    if (total > 0) {
-      return;
-    }
-
     let finalTotal = parseFloat(subTotal);
 
     if (finalTotal < 50) {
       finalTotal += parseFloat(deliveryInfo.price);
     }
+
+    const discount = sessionStorage.getItem("codeAmount")
+      ? parseFloat(sessionStorage.getItem("codeAmount"))
+      : 0;
+
+    finalTotal -= discount;
 
     setTotal(finalTotal.toFixed(2));
     sessionStorage.setItem("total", finalTotal.toFixed(2));
@@ -55,14 +61,35 @@ const Sidebar = () => {
 
   const handlePromoCode = (event) => {
     const code = event.target.value;
+
     setPromoCodeValue(code);
-    sessionStorage.setItem("promoCode", code);
   };
 
-  const handleApplyPromoCode = () => {
-    applyPromoCode(promoCodeValue, subTotal);
-    const updatedTotal = parseFloat(sessionStorage.getItem("total")) || 0;
-    setTotal(updatedTotal);
+  const handleApplyPromoCode = async () => {
+    const isPromoApplied = await applyPromoCode(promoCodeValue, subTotal);
+
+    setError(!isPromoApplied);
+
+    const updatedTotal = sessionStorage.getItem("total") || 0;
+
+    if (updatedTotal > 0) {
+      setTotal(updatedTotal);
+    }
+  };
+
+  const handleRemovePromoCode = () => {
+    removePromoCode(subTotal);
+
+    setPromoCodeValue("");
+    setError(false);
+
+    const subTotalWithoutDiscount = parseFloat(subTotal);
+
+    let finalTotal = subTotalWithoutDiscount;
+
+    setTotal(finalTotal.toFixed(2));
+
+    sessionStorage.setItem("total", finalTotal.toFixed(2));
   };
 
   // Accordions Height
@@ -100,6 +127,19 @@ const Sidebar = () => {
 
             <span>€{subTotal}</span>
           </div>
+
+          {codeName && codeAmount > 0 && (
+            <div className="sidebar__row">
+              <p>
+                Promo Code:{" "}
+                <span style={{ fontWeight: 700, fontSize: "14px" }}>
+                  ({codeName})
+                </span>
+              </p>
+
+              <span>-€ {codeAmount}</span>
+            </div>
+          )}
 
           {subTotal >= 50 && (
             <div className="sidebar_shipping sidebar__row">
@@ -155,24 +195,55 @@ const Sidebar = () => {
             className="sidebar__body-form"
             style={{ height: `${promoCodeHeight}px` }}
           >
-            <form action="" ref={promoCodeRef}>
-              <input
-                type="text"
-                placeholder="Enter Promo"
-                value={promoCodeValue}
-                onChange={handlePromoCode}
-              />
+            <div ref={promoCodeRef}>
+              <form action="">
+                <input
+                  type="text"
+                  placeholder="Enter Promo"
+                  value={promoCodeValue}
+                  onChange={handlePromoCode}
+                />
+                <button
+                  type="button"
+                  disabled={promoCodeValue === ""}
+                  onClick={handleApplyPromoCode}
+                >
+                  Apply
+                </button>
+                {error && <span className="error">Invalid promo code</span>}
+              </form>
 
-              <button
-                type="button"
-                disabled={promoCodeValue === ""}
-                onClick={handleApplyPromoCode}
-              >
-                Apply
-              </button>
+              {codeName && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
+                  }}
+                >
+                  <div>
+                    APPLIED: <strong>{codeName}</strong>
+                  </div>
 
-              {error && <span className="error">Invalid promo code</span>}
-            </form>
+                  <button
+                    type="button"
+                    onClick={handleRemovePromoCode}
+                    style={{
+                      backgroundColor: "#ff4d4f",
+                      color: "#fff",
+                      border: "none",
+                      padding: "4px 18px",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

@@ -5,11 +5,25 @@ const useSectionHeight = (isOpen) => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    const updateHeight = () => {
+      if (sectionRef.current) {
+        const newHeight = isOpen ? sectionRef.current.scrollHeight : 0;
+        setSectionHeight(newHeight);
+      }
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
     if (sectionRef.current) {
-      const newHeight = isOpen ? sectionRef.current.clientHeight : 0;
-      setSectionHeight(newHeight);
+      observer.observe(sectionRef.current);
     }
-  }, [isOpen, sectionRef.current?.scrollHeight]);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isOpen]);
+
   return { sectionRef, sectionHeight };
 };
 
