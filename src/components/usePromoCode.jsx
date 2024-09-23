@@ -1,28 +1,7 @@
-import { useState, useEffect } from "react";
-
 const usePromoCode = () => {
-  const [promoCodes, setPromoCodes] = useState([]);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchPromoCodes = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/promoCodes");
-        if (!response.ok) throw new Error("Failed to fetch promo codes");
-        const data = await response.json();
-        setPromoCodes(data);
-      } catch (error) {
-        console.error("Error fetching promo codes:", error);
-      }
-    };
-
-    fetchPromoCodes();
-  }, []);
-
-  const applyPromoCode = (appliedPromoCode, subTotal) => {
-    setError(false);
-
+  const applyPromoCode = async (appliedPromoCode, subTotal) => {
     let finalTotal = parseFloat(subTotal);
+
     const deliveryInfo =
       JSON.parse(sessionStorage.getItem("deliveryInfo")) || {};
 
@@ -30,18 +9,43 @@ const usePromoCode = () => {
       finalTotal += parseFloat(deliveryInfo.price || 0);
     }
 
-    const promoCode = promoCodes.find((code) => code.name === appliedPromoCode);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/promoCodes?name=${appliedPromoCode}`
+      );
 
-    if (promoCode) {
-      const discountAmount = (subTotal * promoCode.discount) / 100;
-      finalTotal -= discountAmount;
-      sessionStorage.setItem("total", finalTotal.toFixed(2));
-    } else {
-      setError(true);
+      if (!response.ok) {
+        throw new Error("Promo code is invalid or not found");
+      }
+
+      const [promoCode] = await response.json();
+
+      if (promoCode) {
+        const discountAmount = (subTotal * promoCode.discount) / 100;
+        finalTotal -= discountAmount;
+
+        sessionStorage.setItem("total", finalTotal.toFixed(2));
+        sessionStorage.setItem("codeName", promoCode.name);
+        sessionStorage.setItem("codeAmount", discountAmount);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error applying promo code:", error);
+
+      return false;
     }
   };
 
-  return { applyPromoCode, error };
+  const removePromoCode = (subTotal) => {
+    sessionStorage.removeItem("codeName");
+    sessionStorage.removeItem("codeAmount");
+    sessionStorage.removeItem("promoCode");
+    sessionStorage.setItem("total", subTotal);
+  };
+
+  return { applyPromoCode, removePromoCode };
 };
 
 export default usePromoCode;
