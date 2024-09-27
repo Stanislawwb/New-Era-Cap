@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
-import useSectionHeight from "./useSectionHeight";
-import useFetchProducts from "./useFetchProducts";
-import usePromoCode from "./usePromoCode";
+import useSectionHeight from "../helpers/useSectionHeight";
+import useFetchProducts from "../helpers/useFetchProducts";
+import usePromoCode from "../helpers/usePromoCode";
 
 const Sidebar = () => {
   const { products, loading } = useFetchProducts();

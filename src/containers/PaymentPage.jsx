@@ -1,6 +1,6 @@
-import Steps from "./components/Steps";
-import Sidebar from "./components/Sidebar";
-import PaymentForm from "./components/PaymentForm";
+import Steps from "../components/Steps";
+import Sidebar from "../components/Sidebar";
+import PaymentForm from "../components/PaymentForm";
 
 const PaymentPage = () => {
   return (

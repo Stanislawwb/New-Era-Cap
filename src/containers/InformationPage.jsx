@@ -1,6 +1,6 @@
-import Steps from "./components/Steps";
-import DetailsForm from "./components/DetailsForm";
-import Sidebar from "./components/Sidebar";
+import Steps from "../components/Steps";
+import DetailsForm from "../components/DetailsForm";
+import Sidebar from "../components/Sidebar";
 
 const InformationPage = () => {
   return (
