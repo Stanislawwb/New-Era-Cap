@@ -1,12 +1,17 @@
+interface PromoCode {
+  name: string;
+  discount: number;
+}
+
 const usePromoCode = () => {
-  const applyPromoCode = async (appliedPromoCode, subTotal) => {
-    let finalTotal = parseFloat(subTotal);
+  const applyPromoCode = async (appliedPromoCode: string, subTotal: number): Promise<boolean> => {
+    let finalTotal = subTotal;
 
     const deliveryInfo =
-      JSON.parse(sessionStorage.getItem("deliveryInfo")) || {};
+      JSON.parse(sessionStorage.getItem("deliveryInfo") || '{}');
 
     if (finalTotal < 50) {
-      finalTotal += parseFloat(deliveryInfo.price || 0);
+      finalTotal += parseFloat(deliveryInfo.price || "0");
     }
 
     try {
@@ -18,7 +23,7 @@ const usePromoCode = () => {
         throw new Error("Promo code is invalid or not found");
       }
 
-      const [promoCode] = await response.json();
+      const [promoCode]: PromoCode[] = await response.json();
 
       if (promoCode) {
         const discountAmount = (subTotal * promoCode.discount) / 100;
@@ -26,7 +31,7 @@ const usePromoCode = () => {
 
         sessionStorage.setItem("total", finalTotal.toFixed(2));
         sessionStorage.setItem("codeName", promoCode.name);
-        sessionStorage.setItem("codeAmount", discountAmount);
+        sessionStorage.setItem("codeAmount", discountAmount.toFixed(2));
         return true;
       } else {
         return false;
@@ -38,11 +43,11 @@ const usePromoCode = () => {
     }
   };
 
-  const removePromoCode = (subTotal) => {
+  const removePromoCode = (subTotal: number): void => {
     sessionStorage.removeItem("codeName");
     sessionStorage.removeItem("codeAmount");
     sessionStorage.removeItem("promoCode");
-    sessionStorage.setItem("total", subTotal);
+    sessionStorage.setItem("total", subTotal.toString());
   };
 
   return { applyPromoCode, removePromoCode };

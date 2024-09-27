@@ -1,8 +1,23 @@
 import { useState, useEffect } from "react";
 
-const useFetchProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+interface Product {
+  id: number
+  name: string
+  type: string
+  color: string
+  price: number
+  currency: string
+  imageUrl: string
+}
+
+interface UseFetchProductsReturn {
+  products: Product[]
+  loading: boolean;
+}
+
+const useFetchProducts = (): UseFetchProductsReturn => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,7 +28,7 @@ const useFetchProducts = () => {
           throw new Error("Failed to fetch products");
         }
 
-        const data = await response.json();
+        const data: Product[] = await response.json();
 
         setProducts(data);
       } catch (error) {

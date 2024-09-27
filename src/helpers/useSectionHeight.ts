@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-const useSectionHeight = (isOpen) => {
-  const [sectionHeight, setSectionHeight] = useState(0);
-  const sectionRef = useRef(null);
+
+interface UseSectionHeightReturn {
+  sectionRef: React.RefObject<HTMLDivElement>;
+  sectionHeight: number;
+}
+
+const useSectionHeight = (isOpen: boolean): UseSectionHeightReturn  => {
+  const [sectionHeight, setSectionHeight] = useState<number>(0);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const updateHeight = () => {

@@ -1,5 +1,5 @@
 import lock from "../assets/icon-padlock.svg";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
