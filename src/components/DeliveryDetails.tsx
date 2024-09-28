@@ -1,4 +1,15 @@
-const DeliveryDetails = ({ details, deliveryMethod }) => {
+import { FormData } from "./DetailsForm";
+
+export interface DeliveryDetailsProps {
+ details: FormData;
+
+ deliveryMethod: {
+  method: string;
+  price: number;
+ }
+}
+
+const DeliveryDetails: React.FC<DeliveryDetailsProps> = ({ details, deliveryMethod }) => {
   return (
     <div className="sidebar__delivery-info">
       <div className="sidebar__delivery-details">

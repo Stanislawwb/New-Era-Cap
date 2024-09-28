@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-const Steps = () => {
+const Steps: React.FC = () => {
   const location = useLocation();
 
-  const handleStepOne = () => {
+  const handleStepOne = (): React.ReactNode => {
     if (location.pathname === "/login") {
       return "1";
     } else {
@@ -12,7 +12,7 @@ const Steps = () => {
     }
   };
 
-  const handleStepTwo = () => {
+  const handleStepTwo = (): React.ReactNode => {
     if (
       location.pathname === "/information" ||
       location.pathname === "/login"

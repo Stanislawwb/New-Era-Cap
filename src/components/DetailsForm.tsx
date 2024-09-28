@@ -1,39 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-const DetailsForm = () => {
-  const [isManualAddress, setIsManualAddress] = useState(false);
-  const [showCompany, setShowCompany] = useState(false);
-  const [showAddressLine2, setShowAddressLine2] = useState(false);
-  const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+export interface FormData {
+  email: string;
+  subscribe?: boolean;
+  country: string;
+  firstName: string;
+  lastName: string;
+  addressFinder?: string;
+  company?: string;
+  address: string;
+  address2?: string;
+  city: string;
+  state?: string;
+  postcode: string;
+  tel: string;
+}
+
+export interface Country {
+  name: string;
+  delivery: {
+    standard: number;
+    express?: number;
+  }
+  fallback?: boolean;
+}
+
+const DetailsForm: React.FC = () => {
+  const [isManualAddress, setIsManualAddress] = useState<boolean>(false);
+  const [showCompany, setShowCompany] = useState<boolean>(false);
+  const [showAddressLine2, setShowAddressLine2] = useState<boolean>(false);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const navigate = useNavigate();
 
-  const handleCountryChange = (e) => {
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const countryName = e.target.value;
     const country = countries.find((c) => c.name === countryName);
-    setSelectedCountry(country);
 
-    const deliveryInfo = {
-      method: "standard",
-      price: country.delivery.standard,
-    };
-    sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+    if(country) {
+      setSelectedCountry(country);
+
+      const deliveryInfo = {
+        method: "standard",
+        price: country.delivery.standard,
+      };
+      sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+    }
+
   };
 
-  const handleDeliveryChange = (e) => {
-    const method = e.target.value;
-    const price =
-      method === "standard"
-        ? selectedCountry.delivery.standard
-        : selectedCountry.delivery.express || 0;
+  const handleDeliveryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedCountry) {
+      const method = e.target.value;
+      const price =
+        method === "standard"
+          ? selectedCountry.delivery.standard
+          : selectedCountry.delivery.express || 0;
 
-    const deliveryInfo = {
-      method,
-      price,
-    };
-    sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+      const deliveryInfo = {
+        method,
+        price,
+      };
+      sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+    }
   };
 
   useEffect(() => {
@@ -43,7 +74,7 @@ const DetailsForm = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch countries");
         }
-        const data = await response.json();
+        const data: Country[] = await response.json();
         data.sort((a, b) => a.name.localeCompare(b.name));
         setCountries(data);
       } catch (error) {
@@ -80,13 +111,17 @@ const DetailsForm = () => {
           sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
         } else {
           const fallbackCountry = countries.find((country) => country.fallback);
-          setSelectedCountry(fallbackCountry);
 
-          const deliveryInfo = {
-            method: "standard",
-            price: fallbackCountry.delivery.standard,
-          };
-          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+          if(fallbackCountry) {
+            setSelectedCountry(fallbackCountry);
+
+            const deliveryInfo = {
+              method: "standard",
+              price: fallbackCountry.delivery.standard,
+            };
+
+            sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+          }
 
           console.log(
             `Country "${userCountry}" not found in the fetched countries.`
@@ -94,13 +129,17 @@ const DetailsForm = () => {
         }
       } catch (error) {
         const fallbackCountry = countries.find((country) => country.fallback);
-        setSelectedCountry(fallbackCountry);
+        
+        if(fallbackCountry) {
+          setSelectedCountry(fallbackCountry);
+                 
+          const deliveryInfo = {
+            method: "standard",
+            price: fallbackCountry.delivery.standard,
+          };
 
-        const deliveryInfo = {
-          method: "standard",
-          price: fallbackCountry.delivery.standard,
-        };
-        sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+        }        
 
         console.error("Error fetching user country:", error);
       }
@@ -111,7 +150,7 @@ const DetailsForm = () => {
     }
   }, [countries]);
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     sessionStorage.setItem("formData", JSON.stringify(data));
     navigate("/payment");
   };
@@ -120,7 +159,7 @@ const DetailsForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
   return (
     <form className="form form--information" onSubmit={handleSubmit(onSubmit)}>

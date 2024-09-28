@@ -3,33 +3,35 @@ import { ClipLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
-import useFetchProducts from "../helpers/useFetchProducts";
+import useFetchProducts, { Product } from "../helpers/useFetchProducts";
 import usePromoCode from "../helpers/usePromoCode";
+import { FormData } from "./DetailsForm";
 
-const Sidebar = () => {
+interface DeliveryInfo {
+  method: string;
+  price: number;
+}
+
+const Sidebar: React.FC = () => {
   const { products, loading } = useFetchProducts();
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<boolean>(false);
 
   const { applyPromoCode, removePromoCode } = usePromoCode();
 
-  const [subTotal, setSubTotal] = useState(
-    parseFloat(sessionStorage.getItem("subTotal")) || 0
+  const [subTotal, setSubTotal] = useState<number>(
+    parseFloat(sessionStorage.getItem("subTotal") || "0")
   );
-  const [promoCodeValue, setPromoCodeValue] = useState(
+  const [promoCodeValue, setPromoCodeValue] = useState<string>(
     sessionStorage.getItem("promoCode") || ""
   );
-
-  // sessionStorage.clear();
 
   const [total, setTotal] = useState(sessionStorage.getItem("total") || 0);
 
   const location = useLocation();
 
-  const formData = JSON.parse(sessionStorage.getItem("formData")) || {};
-  const deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo")) || {
-    price: 0,
-  };
+  const formData: FormData = JSON.parse(sessionStorage.getItem("formData") || '{}');
+  const deliveryInfo: DeliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo") || '{"price": 0 }');
 
   const codeName = sessionStorage.getItem("codeName");
   const codeAmount = Number(sessionStorage.getItem("codeAmount")).toFixed(2);
@@ -39,19 +41,18 @@ const Sidebar = () => {
       .reduce((acc, product) => acc + product.price, 0)
       .toFixed(2);
 
-    setSubTotal(parseFloat(finalTotal).toFixed(2));
+    setSubTotal(parseFloat(finalTotal));
   }, [products]);
 
   useEffect(() => {
-    let finalTotal = parseFloat(subTotal);
+    let finalTotal = subTotal;
 
     if (finalTotal < 50) {
-      finalTotal += parseFloat(deliveryInfo.price);
+      finalTotal += deliveryInfo.price;
     }
 
     const discount = sessionStorage.getItem("codeAmount")
-      ? parseFloat(sessionStorage.getItem("codeAmount"))
-      : 0;
+      ? parseFloat(sessionStorage.getItem("codeAmount") || '0') : 0;
 
     finalTotal -= discount;
 
@@ -59,7 +60,7 @@ const Sidebar = () => {
     sessionStorage.setItem("total", finalTotal.toFixed(2));
   }, [subTotal, deliveryInfo]);
 
-  const handlePromoCode = (event) => {
+  const handlePromoCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     const code = event.target.value;
 
     setPromoCodeValue(code);
@@ -70,7 +71,7 @@ const Sidebar = () => {
 
     setError(!isPromoApplied);
 
-    const updatedTotal = sessionStorage.getItem("total") || 0;
+    const updatedTotal = parseFloat(sessionStorage.getItem("total") || '0');
 
     if (updatedTotal > 0) {
       setTotal(updatedTotal);
@@ -83,7 +84,7 @@ const Sidebar = () => {
     setPromoCodeValue("");
     setError(false);
 
-    const subTotalWithoutDiscount = parseFloat(subTotal);
+    const subTotalWithoutDiscount = subTotal;
 
     let finalTotal = subTotalWithoutDiscount;
 
@@ -125,10 +126,10 @@ const Sidebar = () => {
               </span>
             </p>
 
-            <span>€{subTotal}</span>
+            <span>€{subTotal.toFixed(2)}</span>
           </div>
 
-          {codeName && codeAmount > 0 && (
+          {codeName && parseFloat(codeAmount) > 0 && (
             <div className="sidebar__row">
               <p>
                 Promo Code:{" "}
@@ -288,7 +289,6 @@ const Sidebar = () => {
                     <h5>{product.type}</h5>
                     <p>{product.name}</p>
                     <span>Colour: {product.color}</span>
-                    <span>Size: {product.size}</span>
 
                     <b>
                       {product.currency}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import lock from "../assets/icon-padlock.svg";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="header">
       <Link to="/" className="logo">

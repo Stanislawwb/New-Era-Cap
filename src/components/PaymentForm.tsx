@@ -8,15 +8,30 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { DeliveryDetailsProps } from "./DeliveryDetails";
 
 const stripePromise = loadStripe(
   "pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn"
 );
 
-const PaymentForm = () => {
-  const [isCardChecked, setIsCardChecked] = useState(false);
+
+interface PaymentFormInputs {
+  paymentMethod: string;
+  nameOnCard: string;
+}
+
+interface PaymentData {
+  paymentMethodId: string;
+  amount: string;
+  currency: string;
+  deliveryInfo: DeliveryDetailsProps['deliveryMethod'];
+  formData: DeliveryDetailsProps['details'];
+}
+
+const PaymentForm: React.FC = () => {
+  const [isCardChecked, setIsCardChecked] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -24,21 +39,27 @@ const PaymentForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<PaymentFormInputs>();
 
-  const formData = JSON.parse(sessionStorage.getItem("formData"));
-  const deliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo"));
-  const total = JSON.parse(sessionStorage.getItem("total"));
+  const formData: DeliveryDetailsProps['details'] = JSON.parse(sessionStorage.getItem("formData") || "{}");
+  const deliveryInfo: DeliveryDetailsProps['deliveryMethod'] = JSON.parse(sessionStorage.getItem("deliveryInfo") || "{}");
+  const total: string = JSON.parse(sessionStorage.getItem("total") || "0");
 
   const stripe = useStripe();
   const elements = useElements();
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<PaymentFormInputs> = async (data) => {
     if (!stripe || !elements) {
       return;
     }
 
     const cardElement = elements.getElement(CardElement);
+
+    if(!cardElement) {
+      console.log('Card element not found');
+
+      return;
+    }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -55,7 +76,6 @@ const PaymentForm = () => {
         paymentMethodId: paymentMethod.id,
         amount: parseFloat(total).toFixed(2),
         currency: "EUR",
-        items: formData.products,
         deliveryInfo,
         formData,
       };
@@ -84,7 +104,7 @@ const PaymentForm = () => {
     }
   };
 
-  const handleCardChange = (event) => {
+  const handleCardChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsCardChecked(event.target.value === "card");
   };
 
