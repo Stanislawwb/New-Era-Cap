@@ -5,43 +5,99 @@ import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
 import useFetchProducts, { Product } from "../helpers/useFetchProducts";
 import usePromoCode from "../helpers/usePromoCode";
-import { FormData } from "./DetailsForm";
+import { FormData } from "../types/detailsFormTypes";
+import { getSession, updateSession, createSession, getSessionById, getSessionId } from "../http/sessionService";
+import { SessionData } from "../http/sessionService";
 
 interface DeliveryInfo {
   method: string;
   price: number;
 }
 
+interface PromoCode {
+  name: string | null;
+  amount: number;
+  value: string;
+}
+
 const Sidebar: React.FC = () => {
   const { products, loading } = useFetchProducts();
-
   const [error, setError] = useState<boolean>(false);
+  const [subTotal, setSubTotal] = useState<number>(0);
+  const [total, setTotal] = useState<string>("0");
+  const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfo>({ method: "", price: 0 });
+  const [formData, setFormData] = useState<FormData | null>(null);
 
-  const { applyPromoCode, removePromoCode } = usePromoCode();
+  const [promoCode, setPromoCode] = useState<PromoCode>({
+    name: null,
+    amount: 0,
+    value: "",
+  });
 
-  const [subTotal, setSubTotal] = useState<number>(
-    parseFloat(sessionStorage.getItem("subTotal") || "0")
-  );
-  const [promoCodeValue, setPromoCodeValue] = useState<string>(
-    sessionStorage.getItem("promoCode") || ""
-  );
-
-  const [total, setTotal] = useState(sessionStorage.getItem("total") || 0);
+  const { applyPromoCode, removePromoCode } = usePromoCode(({ name, amount, total }) => {
+    setPromoCode((prev) => ({ ...prev, name, amount }));
+    setTotal(total);
+  });
 
   const location = useLocation();
 
-  const formData: FormData = JSON.parse(sessionStorage.getItem("formData") || '{}');
-  const deliveryInfo: DeliveryInfo = JSON.parse(sessionStorage.getItem("deliveryInfo") || '{"price": 0 }');
+  useEffect(() => {
+    const loadSessionData = async () => {
+      try {
+        const sessionData = await getSession();
+        
+        if (sessionData) {
+          setFormData(sessionData.formData);
+          setPromoCode((prev) => ({
+            ...prev,
+            name: sessionData.codeName || null,
+            amount: sessionData.codeAmount || 0
+          }));
 
-  const codeName = sessionStorage.getItem("codeName");
-  const codeAmount = Number(sessionStorage.getItem("codeAmount")).toFixed(2);
+          if (sessionData.formData && sessionData.formData.delivery) {
+            setDeliveryInfo({
+              method: sessionData.formData.delivery.method,
+              price: sessionData.formData.delivery.price
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load session data", error);
+      }
+    };
+
+    loadSessionData();
+  }, []);
 
   useEffect(() => {
-    let finalTotal = products
-      .reduce((acc, product) => acc + product.price, 0)
-      .toFixed(2);
-
-    setSubTotal(parseFloat(finalTotal));
+    const saveSessionData = async () => {
+      try {
+        if (formData) {
+          const existingSession = await getSessionById(getSessionId());
+          const sessionData: SessionData = {
+            sessionId: getSessionId(),
+            formData,
+            codeName: promoCode.name || undefined,
+            codeAmount: promoCode.amount || undefined
+          };
+          
+          if (existingSession) {
+            await updateSession({ ...existingSession, ...sessionData });
+          } else {
+            await createSession(sessionData);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to save session data", error);
+      }
+    };
+    
+    saveSessionData();
+  }, [formData, promoCode]);
+  
+  useEffect(() => {
+    const finalSubTotal = products.reduce((acc, product) => acc + product.price, 0);
+    setSubTotal(finalSubTotal);
   }, [products]);
 
   useEffect(() => {
@@ -51,46 +107,43 @@ const Sidebar: React.FC = () => {
       finalTotal += deliveryInfo.price;
     }
 
-    const discount = sessionStorage.getItem("codeAmount")
-      ? parseFloat(sessionStorage.getItem("codeAmount") || '0') : 0;
-
-    finalTotal -= discount;
+    finalTotal -= promoCode.amount;
 
     setTotal(finalTotal.toFixed(2));
-    sessionStorage.setItem("total", finalTotal.toFixed(2));
-  }, [subTotal, deliveryInfo]);
+  }, [subTotal, deliveryInfo, promoCode.amount]);
 
   const handlePromoCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     const code = event.target.value;
-
-    setPromoCodeValue(code);
+    setPromoCode((prev) => ({...prev, value: code}));
   };
 
   const handleApplyPromoCode = async () => {
-    const isPromoApplied = await applyPromoCode(promoCodeValue, subTotal);
+    const isPromoApplied = await applyPromoCode(promoCode.value, subTotal);
 
     setError(!isPromoApplied);
 
-    const updatedTotal = parseFloat(sessionStorage.getItem("total") || '0');
-
-    if (updatedTotal > 0) {
-      setTotal(updatedTotal);
+    if (!isPromoApplied) {
+      setPromoCode((prev) => ({
+        ...prev,
+        name: null,
+        amount: 0
+      }));
     }
   };
 
   const handleRemovePromoCode = () => {
     removePromoCode(subTotal);
 
-    setPromoCodeValue("");
+    setPromoCode({
+      name: null,
+      amount: 0,
+      value: "",
+    })
+
     setError(false);
-
-    const subTotalWithoutDiscount = subTotal;
-
-    let finalTotal = subTotalWithoutDiscount;
-
+    
+    const finalTotal = subTotal < 50 ? subTotal + deliveryInfo.price : subTotal;
     setTotal(finalTotal.toFixed(2));
-
-    sessionStorage.setItem("total", finalTotal.toFixed(2));
   };
 
   // Accordions Height
@@ -129,16 +182,16 @@ const Sidebar: React.FC = () => {
             <span>€{subTotal.toFixed(2)}</span>
           </div>
 
-          {codeName && parseFloat(codeAmount) > 0 && (
+          {promoCode.name && promoCode.amount > 0 && (
             <div className="sidebar__row">
               <p>
                 Promo Code:{" "}
                 <span style={{ fontWeight: 700, fontSize: "14px" }}>
-                  ({codeName})
+                  ({promoCode.name})
                 </span>
               </p>
 
-              <span>-€ {codeAmount}</span>
+              <span>-€ {promoCode.amount.toFixed(2)}</span>
             </div>
           )}
 
@@ -201,12 +254,12 @@ const Sidebar: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Enter Promo"
-                  value={promoCodeValue}
+                  value={promoCode.value}
                   onChange={handlePromoCode}
                 />
                 <button
                   type="button"
-                  disabled={promoCodeValue === ""}
+                  disabled={promoCode.value === ""}
                   onClick={handleApplyPromoCode}
                 >
                   Apply
@@ -214,7 +267,7 @@ const Sidebar: React.FC = () => {
                 {error && <span className="error">Invalid promo code</span>}
               </form>
 
-              {codeName && (
+              {promoCode.name && (
                 <div
                   style={{
                     display: "flex",
@@ -223,7 +276,7 @@ const Sidebar: React.FC = () => {
                   }}
                 >
                   <div>
-                    APPLIED: <strong>{codeName}</strong>
+                    APPLIED: <strong>{promoCode.name}</strong>
                   </div>
 
                   <button
@@ -301,7 +354,7 @@ const Sidebar: React.FC = () => {
           </div>
         </div>
 
-        {location.pathname === "/payment" && (
+        {location.pathname === "/payment" && formData  && (
           <DeliveryDetails details={formData} deliveryMethod={deliveryInfo} />
         )}
       </div>

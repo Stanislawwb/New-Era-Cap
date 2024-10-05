@@ -1,12 +1,9 @@
-import { FormData } from "./DetailsForm";
+import { FormData, DeliveryInfo } from "..//types/detailsFormTypes";
 
 export interface DeliveryDetailsProps {
  details: FormData;
 
- deliveryMethod: {
-  method: string;
-  price: number;
- }
+ deliveryMethod: DeliveryInfo;
 }
 
 const DeliveryDetails: React.FC<DeliveryDetailsProps> = ({ details, deliveryMethod }) => {

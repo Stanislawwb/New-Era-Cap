@@ -3,16 +3,9 @@ interface PromoCode {
   discount: number;
 }
 
-const usePromoCode = () => {
+const usePromoCode = (updatePromoCode: (promoCode: { name: string; amount: number; total: string }) => void) => {
   const applyPromoCode = async (appliedPromoCode: string, subTotal: number): Promise<boolean> => {
     let finalTotal = subTotal;
-
-    const deliveryInfo =
-      JSON.parse(sessionStorage.getItem("deliveryInfo") || '{}');
-
-    if (finalTotal < 50) {
-      finalTotal += parseFloat(deliveryInfo.price || "0");
-    }
 
     try {
       const response = await fetch(
@@ -29,25 +22,28 @@ const usePromoCode = () => {
         const discountAmount = (subTotal * promoCode.discount) / 100;
         finalTotal -= discountAmount;
 
-        sessionStorage.setItem("total", finalTotal.toFixed(2));
-        sessionStorage.setItem("codeName", promoCode.name);
-        sessionStorage.setItem("codeAmount", discountAmount.toFixed(2));
+        updatePromoCode({
+          name: promoCode.name,
+          amount: discountAmount,
+          total: finalTotal.toFixed(2)
+        })
+
         return true;
       } else {
         return false;
       }
     } catch (error) {
       console.error("Error applying promo code:", error);
-
       return false;
     }
   };
 
   const removePromoCode = (subTotal: number): void => {
-    sessionStorage.removeItem("codeName");
-    sessionStorage.removeItem("codeAmount");
-    sessionStorage.removeItem("promoCode");
-    sessionStorage.setItem("total", subTotal.toString());
+    updatePromoCode({
+      name: "",
+      amount: 0,
+      total: subTotal.toFixed(2),
+    });
   };
 
   return { applyPromoCode, removePromoCode };

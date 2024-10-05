@@ -632,5 +632,439 @@
       },
       "id": 14
     }
+  ],
+  "sessions": [
+    {
+      "sessionId": "c4d69f73-5881-4db0-8f11-542abe8968d6",
+      "formData": {
+        "email": "sevuzon@mailinator.com",
+        "subscribe": false,
+        "country": "",
+        "firstName": "Leroy",
+        "lastName": "Ferguson",
+        "addressFinder": "Iure eos nemo ea fac",
+        "tel": "+1 (674) 889-6728"
+      },
+      "id": 1
+    },
+    {
+      "sessionId": "c4d69f73-5881-4db0-8f11-542abe8968d6",
+      "formData": {
+        "email": "dojemoq@mailinator.com",
+        "subscribe": false,
+        "country": "",
+        "firstName": "Brent",
+        "lastName": "Cochran",
+        "addressFinder": "Quo porro nobis ipsa",
+        "tel": "+1 (852) 755-2215",
+        "delivery": "standard",
+        "address": "",
+        "city": "",
+        "state": "",
+        "postcode": ""
+      },
+      "id": 2
+    },
+    {
+      "sessionId": "c4d69f73-5881-4db0-8f11-542abe8968d6",
+      "formData": {
+        "email": "fijylakizi@mailinator.com",
+        "subscribe": false,
+        "country": "",
+        "firstName": "Nyssa",
+        "lastName": "Berry",
+        "addressFinder": "Impedit et at velit",
+        "tel": "+1 (851) 413-1995",
+        "delivery": "standard"
+      },
+      "id": 3
+    },
+    {
+      "sessionId": "4d5c069d-f1a1-4d5a-9f77-b290925d96ab",
+      "formData": {
+        "email": "asdsad@asd.asd",
+        "subscribe": false,
+        "country": "",
+        "firstName": "asdsaddas",
+        "lastName": "dsadsa",
+        "addressFinder": "asdads",
+        "tel": "1232132131231",
+        "delivery": "standard"
+      },
+      "id": 4
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "jubaruzytu@mailinator.com",
+        "subscribe": false,
+        "country": "Monaco",
+        "firstName": "Colt",
+        "lastName": "York",
+        "addressFinder": "Iure vero consequatu",
+        "tel": "+1 (173) 143-8375",
+        "delivery": "standard"
+      },
+      "id": 5,
+      "email": "jubaruzytu@mailinator.com",
+      "subscribe": false,
+      "country": "Monaco",
+      "firstName": "Colt",
+      "lastName": "York",
+      "addressFinder": "Iure vero consequatu",
+      "tel": "+1 (173) 143-8375",
+      "delivery": "standard",
+      "codeName": "SAVE20",
+      "codeAmount": 27
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "asdds@asdads.com",
+        "subscribe": false,
+        "country": "",
+        "firstName": "asdasd",
+        "lastName": "dasdsa",
+        "addressFinder": "adsdas",
+        "tel": "123213",
+        "delivery": "standard"
+      },
+      "id": 6
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "senugacy@mailinator.com",
+        "subscribe": false,
+        "country": "Moldova",
+        "firstName": "Lev",
+        "lastName": "Nash",
+        "addressFinder": "Labore laudantium s",
+        "tel": "+1 (581) 625-8471",
+        "delivery": "standard"
+      },
+      "id": 7
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "test@ateat.com",
+        "subscribe": true,
+        "country": "Bulgaria",
+        "firstName": "tete",
+        "lastName": "tete",
+        "addressFinder": "tete",
+        "tel": "12312312312",
+        "delivery": "standard"
+      },
+      "id": 8
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "test@abv.bgv",
+        "subscribe": true,
+        "country": "Bulgaria",
+        "firstName": "asdsad",
+        "lastName": "asd",
+        "addressFinder": "asdads",
+        "tel": "12314343",
+        "delivery": "standard"
+      },
+      "id": 9
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "test@atera.asd",
+        "subscribe": true,
+        "country": "Bulgaria",
+        "firstName": "tetsetes",
+        "lastName": "tse",
+        "addressFinder": "tsetes",
+        "tel": "tsetse",
+        "delivery": "standard"
+      },
+      "id": 10
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "test@abv.bg",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "testets",
+        "lastName": "esttes",
+        "addressFinder": "tes",
+        "tel": "123143413431",
+        "delivery": "standard"
+      },
+      "id": 11
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "tetes@ater.asd",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "asdasd",
+        "lastName": "asddasdsa",
+        "addressFinder": "dsa",
+        "tel": "123231",
+        "delivery": "standard"
+      },
+      "id": 12
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "promqnana12@abv.bv",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "asdads",
+        "lastName": "dasdsa",
+        "addressFinder": "dasdadas",
+        "tel": "12312321",
+        "delivery": "standard"
+      },
+      "id": 13
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "pegahi@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Petra",
+        "lastName": "Moore",
+        "addressFinder": "Sunt exercitationem ",
+        "tel": "+1 (202) 464-8215",
+        "delivery": "standard"
+      },
+      "id": 14
+    },
+    {
+      "sessionId": "2563b2c0-bdca-4889-b5c9-914790b4da91",
+      "formData": {
+        "email": "pibi@mailinator.com",
+        "subscribe": true,
+        "country": "France",
+        "firstName": "Lysandra",
+        "lastName": "Gaines",
+        "addressFinder": "Et explicabo Dolori",
+        "tel": "+1 (911) 815-5662",
+        "delivery": "standard"
+      },
+      "id": 15
+    },
+    {
+      "email": "kur@abv.bg",
+      "subscribe": false,
+      "country": "Bulgaria",
+      "firstName": "asd",
+      "lastName": "asd",
+      "addressFinder": "asdsad",
+      "tel": "123",
+      "delivery": "standard",
+      "id": 16
+    },
+    {
+      "email": "asd@ads.asd",
+      "subscribe": false,
+      "country": "Bulgaria",
+      "firstName": "asd",
+      "lastName": "asddsad",
+      "addressFinder": "adsdsa",
+      "tel": "12321321313",
+      "delivery": "standard",
+      "id": 17
+    },
+    {
+      "email": "fygemabef@mailinator.com",
+      "subscribe": true,
+      "country": "France",
+      "firstName": "Beau",
+      "lastName": "Burton",
+      "addressFinder": "Et architecto natus ",
+      "tel": "+1 (916) 412-1534",
+      "delivery": "standard",
+      "id": 18
+    },
+    {
+      "sessionId": "581ac758-a260-4149-a083-0123c2c4dcb6",
+      "formData": {
+        "email": "poku@mailinator.com",
+        "subscribe": true,
+        "country": "France",
+        "firstName": "Ciaran",
+        "lastName": "Sweet",
+        "addressFinder": "Architecto minima et",
+        "tel": "+1 (793) 352-1804",
+        "delivery": {
+          "method": "standard",
+          "price": 6
+        }
+      },
+      "id": 19
+    },
+    {
+      "sessionId": "b734b3ce-502b-489a-9adc-4f62c311da13",
+      "formData": {
+        "email": "asd@aasd.das",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "asd",
+        "lastName": "asd",
+        "addressFinder": "adsads",
+        "tel": "232131",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "id": 20
+    },
+    {
+      "sessionId": "581ac758-a260-4149-a083-0123c2c4dcb6",
+      "formData": {
+        "email": "fegutiboqo@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Daryl",
+        "lastName": "Christian",
+        "addressFinder": "Ut ea aspernatur dol",
+        "tel": "+1 (664) 172-8217",
+        "delivery": {
+          "method": "standard",
+          "price": 3
+        }
+      },
+      "id": 21
+    },
+    {
+      "sessionId": "581ac758-a260-4149-a083-0123c2c4dcb6",
+      "formData": {
+        "email": "dosacawav@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Tamara",
+        "lastName": "Powers",
+        "addressFinder": "Exercitation quia ev",
+        "tel": "+1 (237) 393-3829",
+        "delivery": {
+          "method": "standard",
+          "price": 3
+        }
+      },
+      "id": 22
+    },
+    {
+      "sessionId": "2df96205-7c25-4de9-b851-563a66a68890",
+      "formData": {
+        "email": "testhour@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Imani",
+        "lastName": "Blair",
+        "addressFinder": "Et aut aut cupidatat",
+        "tel": "+1 (294) 255-1268",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        },
+        "timestamp": "2024-10-05T13:23:53.787Z"
+      },
+      "id": 23
+    },
+    {
+      "sessionId": "2df96205-7c25-4de9-b851-563a66a68890",
+      "formData": {
+        "email": "vaxybyd@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "MacKenzie",
+        "lastName": "Hansen",
+        "addressFinder": "Culpa enim esse aut",
+        "tel": "+1 (323) 721-8969",
+        "delivery": {
+          "method": "standard",
+          "price": 6
+        },
+        "timestamp": "2024-10-05T13:25:05.670Z"
+      },
+      "id": 24
+    },
+    {
+      "sessionId": "fb36c3d8-d345-4e5c-9bbe-8febe96ab4cf",
+      "formData": {
+        "email": "opaopa@opa.opa",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "asdads",
+        "lastName": "dsadsa",
+        "addressFinder": "dasas",
+        "tel": "12312312",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        },
+        "timestamp": "2024-10-05T13:27:15.064Z"
+      },
+      "id": 25
+    },
+    {
+      "sessionId": "0b00e053-de75-48f8-bb12-d63dfcab9352",
+      "formData": {
+        "email": "jucuhulos@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Rosalyn",
+        "lastName": "Norris",
+        "addressFinder": "Laudantium ea praes",
+        "tel": "+1 (349) 462-7115",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        },
+        "timestamp": "2024-10-05T13:55:00.662Z"
+      },
+      "id": 26
+    },
+    {
+      "sessionId": "0b00e053-de75-48f8-bb12-d63dfcab9352",
+      "formData": {
+        "email": "bafypapahu@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Savannah",
+        "lastName": "Jarvis",
+        "addressFinder": "Eos laborum ut ex u",
+        "tel": "+1 (985) 255-1596",
+        "delivery": {
+          "method": "standard",
+          "price": 3
+        }
+      },
+      "timestamp": "2024-10-05T13:56:20.586Z",
+      "id": 27
+    },
+    {
+      "sessionId": "0b00e053-de75-48f8-bb12-d63dfcab9352",
+      "formData": {
+        "email": "zigufape@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Noble",
+        "lastName": "Rodriguez",
+        "addressFinder": "Accusamus voluptates",
+        "tel": "+1 (524) 436-6304",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Sat Oct 05 2024 16:57:47 GMT+0300 (Eastern European Summer Time)",
+      "id": 28
+    }
   ]
 }

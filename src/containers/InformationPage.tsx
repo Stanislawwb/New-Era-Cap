@@ -1,15 +1,15 @@
 import Steps from "../components/Steps";
+import DetailsForm from "../components/DetailsForm";
 import Sidebar from "../components/Sidebar";
-import PaymentForm from "../components/PaymentForm";
 
-const PaymentPage = () => {
+const InformationPage: React.FC = () => {
   return (
     <div className="main">
       <div className="shell">
         <Steps />
 
         <div className="section-form">
-          <PaymentForm />
+          <DetailsForm />
 
           <Sidebar />
         </div>
@@ -18,4 +18,4 @@ const PaymentPage = () => {
   );
 };
 
-export default PaymentPage;
+export default InformationPage;

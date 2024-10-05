@@ -1,31 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-export interface FormData {
-  email: string;
-  subscribe?: boolean;
-  country: string;
-  firstName: string;
-  lastName: string;
-  addressFinder?: string;
-  company?: string;
-  address: string;
-  address2?: string;
-  city: string;
-  state?: string;
-  postcode: string;
-  tel: string;
-}
-
-export interface Country {
-  name: string;
-  delivery: {
-    standard: number;
-    express?: number;
-  }
-  fallback?: boolean;
-}
+import { createSession } from "../http/sessionService";
+import { FormData, DeliveryInfo, Country } from "../types/detailsFormTypes";
+import useFetchUserCountry from "../helpers/useFetchUserCountry";
+import { getSessionId } from "../http/sessionService";
 
 const DetailsForm: React.FC = () => {
   const [isManualAddress, setIsManualAddress] = useState<boolean>(false);
@@ -34,132 +13,81 @@ const DetailsForm: React.FC = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormData>();
+  const [delivery, setDelivery] = useState<DeliveryInfo>({
+    method: "standard", 
+    price: 0,
+  })
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const countryName = e.target.value;
     const country = countries.find((c) => c.name === countryName);
 
-    if(country) {
+    if (country) {
       setSelectedCountry(country);
-
-      const deliveryInfo = {
-        method: "standard",
-        price: country.delivery.standard,
-      };
-      sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+      setDelivery({ method: "standard", price: country.delivery.standard });
     }
-
   };
 
   const handleDeliveryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedCountry) {
-      const method = e.target.value;
+      const method = e.target.id as "standard" | "express";
       const price =
-        method === "standard"
-          ? selectedCountry.delivery.standard
-          : selectedCountry.delivery.express || 0;
-
-      const deliveryInfo = {
-        method,
-        price,
-      };
-      sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
-    }
+      method === "standard"
+      ? selectedCountry.delivery.standard
+      : selectedCountry.delivery.express || 0;
+      
+      setDelivery({ method, price });
+    }  
   };
-
+  
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await fetch("http://localhost:3000/countries");
+        
         if (!response.ok) {
           throw new Error("Failed to fetch countries");
         }
+        
         const data: Country[] = await response.json();
+        
         data.sort((a, b) => a.name.localeCompare(b.name));
+        
         setCountries(data);
       } catch (error) {
         console.log("Error fetching countries", error);
       }
     };
-
+    
     fetchCountries();
   }, []);
 
-  useEffect(() => {
-    const fetchUserCountry = async () => {
-      try {
-        const apiKey = "49d1f46e493f4476bee8ad878df84506";
-        const response = await fetch(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}`
-        );
+  useFetchUserCountry(countries, setSelectedCountry, setDelivery, setValue);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const userCountry = data.country_name;
-        const country = countries.find((c) => c.name === userCountry);
-
-        if (country) {
-          setSelectedCountry(country);
-
-          const deliveryInfo = {
-            method: "standard",
-            price: country.delivery.standard,
-          };
-          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
-        } else {
-          const fallbackCountry = countries.find((country) => country.fallback);
-
-          if(fallbackCountry) {
-            setSelectedCountry(fallbackCountry);
-
-            const deliveryInfo = {
-              method: "standard",
-              price: fallbackCountry.delivery.standard,
-            };
-
-            sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
+  const onSubmit: SubmitHandler<FormData> = async (data) => {    
+    try {
+      const sessionId = getSessionId();
+      const timestamp = new Date().toString();
+  
+      const sessionData = {
+        sessionId,
+        formData: {
+          ...data,
+          delivery: {
+            method: delivery.method,
+            price: delivery.price,
           }
-
-          console.log(
-            `Country "${userCountry}" not found in the fetched countries.`
-          );
-        }
-      } catch (error) {
-        const fallbackCountry = countries.find((country) => country.fallback);
-        
-        if(fallbackCountry) {
-          setSelectedCountry(fallbackCountry);
-                 
-          const deliveryInfo = {
-            method: "standard",
-            price: fallbackCountry.delivery.standard,
-          };
-
-          sessionStorage.setItem("deliveryInfo", JSON.stringify(deliveryInfo));
-        }        
-
-        console.error("Error fetching user country:", error);
-      }
-    };
-
-    if (countries.length > 0) {
-      fetchUserCountry();
+        },
+        timestamp
+      };
+  
+      await createSession(sessionData);
+      navigate("/payment");
+    } catch (error) {
+      console.error("Error during session creation:", error);
     }
-  }, [countries]);
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    sessionStorage.setItem("formData", JSON.stringify(data));
-    navigate("/payment");
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
 
   return (
     <form className="form form--information" onSubmit={handleSubmit(onSubmit)}>
@@ -216,7 +144,7 @@ const DetailsForm: React.FC = () => {
               <div className="form__select">
                 <select
                   id="country"
-                  {...register("country")}
+                  {...register("country", { required: true })}
                   onChange={handleCountryChange}
                   value={selectedCountry ? selectedCountry.name : ""}
                 >
@@ -449,10 +377,12 @@ const DetailsForm: React.FC = () => {
                   <div className="form__group">
                     <input
                       type="radio"
-                      name="delivery"
                       id="standard"
-                      value="standard"
+                      value={selectedCountry.delivery.standard
+                          .toFixed(2)
+                          .replace(".", ",")}
                       defaultChecked
+                      {...register("delivery")}
                       onChange={handleDeliveryChange}
                     />
 
@@ -477,9 +407,11 @@ const DetailsForm: React.FC = () => {
                   <div className="form__group">
                     <input
                       type="radio"
-                      name="delivery"
                       id="express"
-                      value="express"
+                      value={selectedCountry.delivery.express
+                        .toFixed(2)
+                        .replace(".", ",")}
+                      {...register("delivery")}
                       onChange={handleDeliveryChange}
                     />
 
