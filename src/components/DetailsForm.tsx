@@ -6,7 +6,11 @@ import { FormData, DeliveryInfo, Country } from "../types/detailsFormTypes";
 import useFetchUserCountry from "../helpers/useFetchUserCountry";
 import { getSessionId } from "../http/sessionService";
 
-const DetailsForm: React.FC = () => {
+interface DetailsFormProps {
+  setDelivery: (delivery: DeliveryInfo) => void;
+}
+
+const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery }) => {
   const [isManualAddress, setIsManualAddress] = useState<boolean>(false);
   const [showCompany, setShowCompany] = useState<boolean>(false);
   const [showAddressLine2, setShowAddressLine2] = useState<boolean>(false);
@@ -14,10 +18,10 @@ const DetailsForm: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormData>();
-  const [delivery, setDelivery] = useState<DeliveryInfo>({
-    method: "standard", 
+  const [localDelivery, setLocalDelivery] = useState<DeliveryInfo>({
+    method: "standard",
     price: 0,
-  })
+  });
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const countryName = e.target.value;
@@ -25,7 +29,9 @@ const DetailsForm: React.FC = () => {
 
     if (country) {
       setSelectedCountry(country);
-      setDelivery({ method: "standard", price: country.delivery.standard });
+      const updatedDelivery = { method: "standard", price: country.delivery.standard };
+      setLocalDelivery(updatedDelivery);
+      setDelivery(updatedDelivery);
     }
   };
 
@@ -114,20 +120,21 @@ const DetailsForm: React.FC = () => {
     try {
       const sessionId = getSessionId();
       const timestamp = new Date().toString();
+
+      const existingSession = await getSessionById(sessionId);
   
       const sessionData = {
         sessionId,
         formData: {
           ...data,
           delivery: {
-            method: delivery.method,
-            price: delivery.price,
-          }
+            method: localDelivery.method,
+            price: localDelivery.price,
+          },
+          promoCode: existingSession?.formData?.promoCode || null,
         },
         timestamp
       };
-
-      const existingSession = await getSessionById(sessionId);
 
       if(existingSession) {
         await updateSession({...existingSession, ...sessionData});

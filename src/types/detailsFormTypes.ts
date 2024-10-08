@@ -18,7 +18,7 @@ export interface FormData {
     postcode: string;
     tel: string;
     delivery: DeliveryInfo;
-    promoCode?: string;
+    promoCode?: string | null;
     discountAmount?: number; 
 }
   

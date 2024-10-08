@@ -7,6 +7,7 @@ export interface SessionData {
   formData: FormData;
   codeName?: string | null;
   codeAmount?: number;
+  timestamp?: any;
 }
 
 const SERVER_URL = "http://localhost:3000/sessions";

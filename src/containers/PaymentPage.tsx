@@ -5,10 +5,16 @@ import PaymentForm from "../components/PaymentForm";
 import { useEffect, useState } from "react";
 import { getSession } from "../http/sessionService";
 
+interface DeliveryInfo {
+  method: string;
+  price: number;
+}
+
 const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
   const [sessionExists, setSessionExists] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfo | null>(null);
 
   useEffect(() => {
     const loadSessionData = async () => {
@@ -30,6 +36,13 @@ const PaymentPage: React.FC = () => {
         }
 
         setSessionExists(true);
+
+        if (sessionData.formData && sessionData.formData.delivery) {
+          setDeliveryInfo({
+            method: sessionData.formData.delivery.method,
+            price: sessionData.formData.delivery.price,
+          });
+        }
       } catch (error) {
         console.error("Failed to load session data", error);
         navigate('/');
@@ -57,7 +70,7 @@ const PaymentPage: React.FC = () => {
         <div className="section-form">
           <PaymentForm />
 
-          <Sidebar />
+          {deliveryInfo && <Sidebar delivery={deliveryInfo} />}
         </div>
       </div>
     </div>

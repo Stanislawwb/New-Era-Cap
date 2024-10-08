@@ -3,7 +3,7 @@ import { ClipLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
-import useFetchProducts, { Product } from "../helpers/useFetchProducts";
+import useFetchProducts from "../helpers/useFetchProducts";
 import usePromoCode from "../helpers/usePromoCode";
 import { FormData } from "../types/detailsFormTypes";
 import { getSession, updateSession, createSession, getSessionById, getSessionId } from "../http/sessionService";
@@ -20,7 +20,13 @@ interface PromoCode {
   value: string;
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  delivery: DeliveryInfo;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ delivery }) => {
+
+  console.log(delivery)
   const { products, loading } = useFetchProducts();
   const [error, setError] = useState<boolean>(false);
   const [subTotal, setSubTotal] = useState<number>(0);
@@ -104,13 +110,13 @@ const Sidebar: React.FC = () => {
     let finalTotal = subTotal;
 
     if (finalTotal < 50) {
-      finalTotal += deliveryInfo.price;
+      finalTotal += delivery.price;
     }
 
     finalTotal -= promoCode.amount;
 
     setTotal(finalTotal.toFixed(2));
-  }, [subTotal, deliveryInfo, promoCode.amount]);
+  }, [subTotal, delivery, promoCode.amount]);
 
   const handlePromoCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     const code = event.target.value;
@@ -142,7 +148,7 @@ const Sidebar: React.FC = () => {
 
     setError(false);
     
-    const finalTotal = subTotal < 50 ? subTotal + deliveryInfo.price : subTotal;
+    const finalTotal = subTotal < 50 ? subTotal + delivery.price : subTotal;
     setTotal(finalTotal.toFixed(2));
   };
 
@@ -199,7 +205,7 @@ const Sidebar: React.FC = () => {
             <div className="sidebar_shipping sidebar__row">
               <p>Free Shipping over 40GBP/50EUR</p>
 
-              <span>-€ {deliveryInfo.price.toFixed(2).replace(",", ".")}</span>
+              <span>-€ {delivery.price.toFixed(2).replace(",", ".")}</span>
             </div>
           )}
 
@@ -209,7 +215,7 @@ const Sidebar: React.FC = () => {
             <span>
               {subTotal >= 50
                 ? "Free"
-                : "€" + deliveryInfo.price.toFixed(2).replace(",", ".")}
+                : "€" + delivery.price.toFixed(2).replace(",", ".")}
             </span>
           </div>
           <div className="sidebar__total sidebar__row">
