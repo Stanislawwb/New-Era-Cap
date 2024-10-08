@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createSession } from "../http/sessionService";
+import { createSession, getSessionById, updateSession } from "../http/sessionService";
 import { FormData, DeliveryInfo, Country } from "../types/detailsFormTypes";
 import useFetchUserCountry from "../helpers/useFetchUserCountry";
 import { getSessionId } from "../http/sessionService";
@@ -65,6 +65,51 @@ const DetailsForm: React.FC = () => {
 
   useFetchUserCountry(countries, setSelectedCountry, setDelivery, setValue);
 
+  useEffect(() => {
+    const populateFormFromSession = async () => {
+      const sessionId = getSessionId();
+
+      try {
+        const existingSession = await getSessionById(sessionId);
+
+        if (existingSession) {
+          const { formData } = existingSession;
+          
+          setValue("email", formData.email);
+          setValue("subscribe", formData.subscribe);
+          setValue("country", formData.country);
+          setValue("firstName", formData.firstName);
+          setValue("lastName", formData.lastName);
+          setValue("addressFinder", formData.addressFinder);
+          setValue("tel", formData.tel);
+
+          const country = countries.find(c => c.name === formData.country);
+          if (country) {
+            setSelectedCountry(country);
+            setDelivery({
+              method: formData.delivery.method,
+              price: formData.delivery.price,
+            });
+          }
+
+          if (formData.address) {
+            setIsManualAddress(true);
+            setValue("address", formData.address);
+            setValue("city", formData.city);
+            setValue("state", formData.state);
+            setValue("postcode", formData.postcode);
+          }
+        }
+      } catch (error) {
+        console.log("Error fetching session data", error);
+      }
+    };
+
+    if (countries.length > 0) {
+      populateFormFromSession();
+    }
+  }, [countries, setValue]);
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {    
     try {
       const sessionId = getSessionId();
@@ -81,8 +126,15 @@ const DetailsForm: React.FC = () => {
         },
         timestamp
       };
+
+      const existingSession = await getSessionById(sessionId);
+
+      if(existingSession) {
+        await updateSession({...existingSession, ...sessionData});
+      } else {
+        await createSession(sessionData);
+      }
   
-      await createSession(sessionData);
       navigate("/payment");
     } catch (error) {
       console.error("Error during session creation:", error);

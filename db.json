@@ -8,24 +8,6 @@
       "price": 45,
       "currency": "€",
       "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599097_3QL.jpg?v=1724935729&width=512"
-    },
-    {
-      "id": 2,
-      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
-      "type": "59FIFTY",
-      "color": "Green",
-      "price": 45,
-      "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599097_3QL.jpg?v=1724935729&width=512"
-    },
-    {
-      "id": 3,
-      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
-      "type": "59FIFTY",
-      "color": "Green",
-      "price": 45,
-      "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599098_3QL.jpg?v=1724935736&width=512"
     }
   ],
   "promoCodes": [
@@ -631,6 +613,23 @@
         "tel": "+1 (716) 423-1705"
       },
       "id": 14
+    },
+    {
+      "paymentMethodId": "pm_1Q7f7p00mgxSrJbW80W40t40",
+      "amount": "0.00",
+      "currency": "EUR",
+      "deliveryInfo": {},
+      "formData": {},
+      "id": 15
+    },
+    {
+      "sessionId": "d01700d5-a93a-4b79-840a-0e2882444e6c",
+      "paymentMethodId": "pm_1Q7fCK00mgxSrJbWuM9gu7NR",
+      "amount": "0.00",
+      "currency": "EUR",
+      "deliveryInfo": {},
+      "formData": {},
+      "id": 16
     }
   ],
   "sessions": [
@@ -1065,6 +1064,248 @@
       },
       "timestamp": "Sat Oct 05 2024 16:57:47 GMT+0300 (Eastern European Summer Time)",
       "id": 28
+    },
+    {
+      "sessionId": "d4a56412-4ffb-44cf-b534-5b983354e923",
+      "formData": {
+        "email": "30widapuqa@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Yasir",
+        "lastName": "Fry",
+        "addressFinder": "Aperiam sed optio n",
+        "tel": "+1 (731) 499-3414",
+        "delivery": {
+          "method": "standard",
+          "price": 6
+        }
+      },
+      "timestamp": "Sun Oct 06 2024 17:06:38 GMT+0300 (Eastern European Summer Time)",
+      "id": 29
+    },
+    {
+      "sessionId": "d4a56412-4ffb-44cf-b534-5b983354e923",
+      "formData": {
+        "email": "qefaqog@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Zelda",
+        "lastName": "Powell",
+        "addressFinder": "Occaecat laborum cor",
+        "tel": "+1 (762) 745-7576",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Sun Oct 06 2024 17:02:56 GMT+0300 (Eastern European Summer Time)",
+      "id": 30
+    },
+    {
+      "sessionId": "ba845ed5-29d3-4caa-a186-9bc9eb0415db",
+      "formData": {
+        "email": "12new12jysofydo@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Boris",
+        "lastName": "Benjamin",
+        "addressFinder": "Cupiditate magna nec",
+        "tel": "+1 (982) 681-8119",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Sun Oct 06 2024 17:07:52 GMT+0300 (Eastern European Summer Time)",
+      "id": 31,
+      "codeName": "DEAL50",
+      "codeAmount": 67.5
+    },
+    {
+      "sessionId": "cad14ab3-20d7-42f2-9a9b-c50abb2884ba",
+      "formData": {
+        "email": "updatesuxyrijulo@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Dennis",
+        "lastName": "Lyons",
+        "addressFinder": "Aliquip nobis rem na",
+        "tel": "+1 (298) 572-7692",
+        "delivery": {
+          "method": "express",
+          "price": 13
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 18:13:37 GMT+0300 (Eastern European Summer Time)",
+      "id": 32
+    },
+    {
+      "sessionId": "876176fa-ff00-4e9d-8300-7226d801f270",
+      "formData": {
+        "email": "editzyfacyzir@mailinator.com",
+        "subscribe": true,
+        "country": "France",
+        "firstName": "Jessica",
+        "lastName": "Cox",
+        "addressFinder": "",
+        "tel": "+1 (687) 364-9655",
+        "delivery": {
+          "method": "express",
+          "price": 14
+        },
+        "address": "Plato Estes",
+        "city": "Et amet omnis labor",
+        "state": "Dolor eligendi hic l",
+        "postcode": "Ea mollitia quis aut"
+      },
+      "timestamp": "Tue Oct 08 2024 18:14:41 GMT+0300 (Eastern European Summer Time)",
+      "id": 33,
+      "codeName": "DEAL50",
+      "codeAmount": 67.5
+    },
+    {
+      "sessionId": "d01700d5-a93a-4b79-840a-0e2882444e6c",
+      "formData": {
+        "email": "moda@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Tobias",
+        "lastName": "Ortega",
+        "addressFinder": "Voluptas in doloribu",
+        "tel": "+1 (516) 755-6774",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 18:19:23 GMT+0300 (Eastern European Summer Time)",
+      "id": 34
+    },
+    {
+      "sessionId": "1133d970-7608-4087-883c-eb07e9a1c2fb",
+      "formData": {
+        "email": "xuhylafo@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Zephr",
+        "lastName": "Rose",
+        "addressFinder": "Amet doloremque sin",
+        "tel": "+1 (225) 456-9398",
+        "delivery": {
+          "method": "standard",
+          "price": 4
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 18:28:10 GMT+0300 (Eastern European Summer Time)",
+      "id": 35
+    },
+    {
+      "sessionId": "cb675ea9-154a-4a3e-a6db-0ab3470928cc",
+      "formData": {
+        "email": "asd@asd.com",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "sad",
+        "lastName": "sad",
+        "addressFinder": "asd",
+        "tel": "213124",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 20:19:27 GMT+0300 (Eastern European Summer Time)",
+      "id": 36
+    },
+    {
+      "sessionId": "b39fdc1a-68e3-430f-9213-3f6aff107f02",
+      "formData": {
+        "email": "asdas@asd.asd",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "dsadsa",
+        "lastName": "dsads",
+        "addressFinder": "dads",
+        "tel": "12312312",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 20:21:27 GMT+0300 (Eastern European Summer Time)",
+      "id": 37
+    },
+    {
+      "sessionId": "d00afdd2-bcc3-4bb3-84a7-d51a1d8d5e4d",
+      "formData": {
+        "email": "asdasd@asd.asd",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "adsdasd",
+        "lastName": "sadasd",
+        "addressFinder": "adsasd",
+        "tel": "12312312",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 20:21:58 GMT+0300 (Eastern European Summer Time)",
+      "id": 38
+    },
+    {
+      "sessionId": "88171c85-5352-4957-a260-c3a04514d701",
+      "formData": {
+        "email": "asd@asd.com",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "asdsad",
+        "lastName": "asdsda",
+        "addressFinder": "das",
+        "tel": "123123",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 20:57:44 GMT+0300 (Eastern European Summer Time)",
+      "id": 39
+    },
+    {
+      "sessionId": "cb0c837b-f289-4dca-ab00-353a135f71c2",
+      "formData": {
+        "email": "asd@asd.com",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "asdasd",
+        "lastName": "asdas",
+        "addressFinder": "dasda",
+        "tel": "312321312",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 21:02:08 GMT+0300 (Eastern European Summer Time)",
+      "id": 40
+    },
+    {
+      "sessionId": "2bd0993d-e532-471b-afc6-254b88c2676a",
+      "formData": {
+        "email": "cocok@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Ezekiel",
+        "lastName": "Erickson",
+        "addressFinder": "Repellendus Quis et",
+        "tel": "+1 (324) 628-8418",
+        "delivery": {
+          "method": "standard",
+          "price": 4
+        }
+      },
+      "timestamp": "Tue Oct 08 2024 21:10:23 GMT+0300 (Eastern European Summer Time)",
+      "id": 41
     }
   ]
 }

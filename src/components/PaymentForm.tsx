@@ -11,11 +11,11 @@ import {
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDetailsProps } from "./DeliveryDetails";
+import { getSessionId } from "../http/sessionService";
 
 const stripePromise = loadStripe(
   "pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn"
 );
-
 
 interface PaymentFormInputs {
   paymentMethod: string;
@@ -72,7 +72,10 @@ const PaymentForm: React.FC = () => {
     if (error) {
       console.log("[error]", error);
     } else {
+      const sessionId = getSessionId();
+
       const paymentData = {
+        sessionId: sessionId,
         paymentMethodId: paymentMethod.id,
         amount: parseFloat(total).toFixed(2),
         currency: "EUR",
