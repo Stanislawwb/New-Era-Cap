@@ -44,6 +44,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
       ? selectedCountry.delivery.standard
       : selectedCountry.delivery.express || 0;
       
+      const updatedDelivery = { method, price };
+      setLocalDelivery(updatedDelivery); 
       setDelivery({ method, price });
     }  
   };
