@@ -5,7 +5,7 @@ import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
 import useFetchProducts from "../helpers/useFetchProducts";
 import usePromoCode from "../helpers/usePromoCode";
-import { FormData } from "../types/detailsFormTypes";
+import { FormData, PromoCode } from "../types/detailsFormTypes";
 import { getSession, updateSession, createSession, getSessionById, getSessionId } from "../http/sessionService";
 import { SessionData } from "../http/sessionService";
 
@@ -14,19 +14,12 @@ interface DeliveryInfo {
   price: number;
 }
 
-interface PromoCode {
-  name: string | null;
-  amount: number;
-  value: string;
-}
-
 interface SidebarProps {
   delivery: DeliveryInfo;
+  setAppliedPromoCode: (appliedPromoCode: PromoCode) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ delivery }) => {
-
-  console.log(delivery)
+const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode }) => {
   const { products, loading } = useFetchProducts();
   const [error, setError] = useState<boolean>(false);
   const [subTotal, setSubTotal] = useState<number>(0);
@@ -123,12 +116,43 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery }) => {
     setPromoCode((prev) => ({...prev, value: code}));
   };
 
+  // const handleApplyPromoCode = async () => {
+  //   const isPromoApplied = await applyPromoCode(promoCode.value, subTotal);
+
+  //   setError(!isPromoApplied);
+
+  //   if (!isPromoApplied) {
+  //     setPromoCode((prev) => ({
+  //       ...prev,
+  //       name: null,
+  //       amount: 0
+  //     }));
+  //   } else {
+  //     setAppliedPromoCode(promoCode);
+  //   }
+  // };
+
   const handleApplyPromoCode = async () => {
-    const isPromoApplied = await applyPromoCode(promoCode.value, subTotal);
+    const promoCodeResponse = await applyPromoCode(promoCode.value, subTotal);
+  
+    if (promoCodeResponse) {
+      const { name, amount } = promoCodeResponse;
+  
+      setPromoCode({
+          name: name,
+          amount: amount,
+          value: promoCode.value,
+      });
 
-    setError(!isPromoApplied);
-
-    if (!isPromoApplied) {
+      setAppliedPromoCode({
+        name: name,
+        amount: amount,
+        value: promoCode.value,
+      });
+      
+      setError(false);
+    } else {
+      setError(true);
       setPromoCode((prev) => ({
         ...prev,
         name: null,
@@ -136,6 +160,9 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery }) => {
       }));
     }
   };
+  
+
+  
 
   const handleRemovePromoCode = () => {
     removePromoCode(subTotal);

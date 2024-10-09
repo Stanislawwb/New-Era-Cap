@@ -630,6 +630,15 @@
       "deliveryInfo": {},
       "formData": {},
       "id": 16
+    },
+    {
+      "sessionId": "6ae9f505-a622-44d2-a128-9c3084661180",
+      "paymentMethodId": "pm_1Q819300mgxSrJbWo62lP8T5",
+      "amount": "0.00",
+      "currency": "EUR",
+      "deliveryInfo": {},
+      "formData": {},
+      "id": 17
     }
   ],
   "sessions": [
@@ -1419,6 +1428,121 @@
       "id": 47,
       "codeName": "DEAL50",
       "codeAmount": 22.5
+    },
+    {
+      "sessionId": "af4f04d2-8cfa-45ae-8977-9ab71c18a93e",
+      "formData": {
+        "email": "ficav@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Castor",
+        "lastName": "Fulton",
+        "addressFinder": "Similique distinctio",
+        "tel": "+1 (556) 733-3616",
+        "delivery": {
+          "method": "standard",
+          "price": 4
+        },
+        "promoCode": null
+      },
+      "timestamp": "Wed Oct 09 2024 15:32:44 GMT+0300 (Eastern European Summer Time)",
+      "id": 48,
+      "codeName": "SAVE20",
+      "codeAmount": 9
+    },
+    {
+      "sessionId": "345b0a40-f493-4094-9065-1153c5bda20e",
+      "formData": {
+        "email": "pemagor@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Dorothy",
+        "lastName": "Ayers",
+        "addressFinder": "Consequatur suscipit",
+        "tel": "+1 (401) 839-8375",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Wed Oct 09 2024 17:05:58 GMT+0300 (Eastern European Summer Time)",
+      "id": 49
+    },
+    {
+      "sessionId": "e16eeb2a-c960-4cb0-92f1-c581520d81f7",
+      "formData": {
+        "email": "hyqyky@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Oren",
+        "lastName": "Haynes",
+        "addressFinder": "Eveniet voluptas ip",
+        "tel": "+1 (266) 264-4571",
+        "delivery": {
+          "method": "standard",
+          "price": 6
+        }
+      },
+      "timestamp": "Wed Oct 09 2024 17:06:16 GMT+0300 (Eastern European Summer Time)",
+      "id": 50
+    },
+    {
+      "sessionId": "cbe8352c-53b6-4eb3-9438-fc4655cba3df",
+      "formData": {
+        "email": "retezil@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Dora",
+        "lastName": "Dawson",
+        "addressFinder": "Quia nulla alias qui",
+        "tel": "+1 (263) 841-9699",
+        "delivery": {
+          "method": "standard",
+          "price": 6
+        }
+      },
+      "timestamp": "Wed Oct 09 2024 17:06:47 GMT+0300 (Eastern European Summer Time)",
+      "id": 51
+    },
+    {
+      "sessionId": "3d2c1bbb-1e17-4a42-b506-a700522df711",
+      "formData": {
+        "email": "jogyho@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Adam",
+        "lastName": "Bray",
+        "addressFinder": "Ducimus laboriosam",
+        "tel": "+1 (119) 493-2444",
+        "delivery": {
+          "method": "standard",
+          "price": 3
+        }
+      },
+      "timestamp": "Wed Oct 09 2024 17:31:49 GMT+0300 (Eastern European Summer Time)",
+      "id": 52,
+      "codeName": "DEAL50",
+      "codeAmount": 22.5
+    },
+    {
+      "sessionId": "6ae9f505-a622-44d2-a128-9c3084661180",
+      "formData": {
+        "email": "zahatoji@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Inga",
+        "lastName": "Kerr",
+        "addressFinder": "Autem delectus dolo",
+        "tel": "+1 (952) 851-8027",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "codeName": "DEAL50",
+      "codeAmount": 22.5,
+      "timestamp": "Wed Oct 09 2024 17:45:05 GMT+0300 (Eastern European Summer Time)",
+      "id": 53
     }
   ]
 }

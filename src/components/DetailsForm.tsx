@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createSession, getSessionById, updateSession } from "../http/sessionService";
-import { FormData, DeliveryInfo, Country } from "../types/detailsFormTypes";
+import { FormData, DeliveryInfo, Country, PromoCode } from "../types/detailsFormTypes";
 import useFetchUserCountry from "../helpers/useFetchUserCountry";
 import { getSessionId } from "../http/sessionService";
 
 interface DetailsFormProps {
   setDelivery: (delivery: DeliveryInfo) => void;
+  appliedPromoCode: PromoCode;
 }
 
-const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery }) => {
+const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode }) => {
   const [isManualAddress, setIsManualAddress] = useState<boolean>(false);
   const [showCompany, setShowCompany] = useState<boolean>(false);
   const [showAddressLine2, setShowAddressLine2] = useState<boolean>(false);
@@ -131,8 +132,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery }) => {
             method: localDelivery.method,
             price: localDelivery.price,
           },
-          promoCode: existingSession?.formData?.promoCode || null,
         },
+        codeName: appliedPromoCode.name || null,  
+        codeAmount: appliedPromoCode.amount || 0,
         timestamp
       };
 
