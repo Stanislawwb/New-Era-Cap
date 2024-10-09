@@ -16,10 +16,11 @@ interface DeliveryInfo {
 
 interface SidebarProps {
   delivery: DeliveryInfo;
-  setAppliedPromoCode: (appliedPromoCode: PromoCode) => void;
+  setAppliedPromoCode?: (appliedPromoCode: PromoCode) => void;
+  setParentTotal?: (total: number) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode }) => {
+const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setParentTotal }) => {
   const { products, loading } = useFetchProducts();
   const [error, setError] = useState<boolean>(false);
   const [subTotal, setSubTotal] = useState<number>(0);
@@ -109,28 +110,16 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode }) => {
     finalTotal -= promoCode.amount;
 
     setTotal(finalTotal.toFixed(2));
+
+    if (setParentTotal && finalTotal !== undefined) {
+      setParentTotal(finalTotal);
+    }
   }, [subTotal, delivery, promoCode.amount]);
 
   const handlePromoCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     const code = event.target.value;
     setPromoCode((prev) => ({...prev, value: code}));
   };
-
-  // const handleApplyPromoCode = async () => {
-  //   const isPromoApplied = await applyPromoCode(promoCode.value, subTotal);
-
-  //   setError(!isPromoApplied);
-
-  //   if (!isPromoApplied) {
-  //     setPromoCode((prev) => ({
-  //       ...prev,
-  //       name: null,
-  //       amount: 0
-  //     }));
-  //   } else {
-  //     setAppliedPromoCode(promoCode);
-  //   }
-  // };
 
   const handleApplyPromoCode = async () => {
     const promoCodeResponse = await applyPromoCode(promoCode.value, subTotal);
@@ -144,11 +133,15 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode }) => {
           value: promoCode.value,
       });
 
-      setAppliedPromoCode({
-        name: name,
-        amount: amount,
-        value: promoCode.value,
-      });
+      if (setAppliedPromoCode) {
+        setAppliedPromoCode({
+          name: name,
+          amount: amount,
+          value: promoCode.value,
+        });
+      }
+
+      console.log(promoCode)
       
       setError(false);
     } else {
@@ -160,9 +153,6 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode }) => {
       }));
     }
   };
-  
-
-  
 
   const handleRemovePromoCode = () => {
     removePromoCode(subTotal);

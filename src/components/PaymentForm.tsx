@@ -30,7 +30,11 @@ interface PaymentData {
   formData: DeliveryDetailsProps['details'];
 }
 
-const PaymentForm: React.FC = () => {
+interface PaymentFormProps {
+  parentTotal: number;
+}
+
+const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
   const [isCardChecked, setIsCardChecked] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -40,10 +44,6 @@ const PaymentForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<PaymentFormInputs>();
-
-  const formData: DeliveryDetailsProps['details'] = JSON.parse(sessionStorage.getItem("formData") || "{}");
-  const deliveryInfo: DeliveryDetailsProps['deliveryMethod'] = JSON.parse(sessionStorage.getItem("deliveryInfo") || "{}");
-  const total: string = JSON.parse(sessionStorage.getItem("total") || "0");
 
   const stripe = useStripe();
   const elements = useElements();
@@ -77,10 +77,8 @@ const PaymentForm: React.FC = () => {
       const paymentData = {
         sessionId: sessionId,
         paymentMethodId: paymentMethod.id,
-        amount: parseFloat(total).toFixed(2),
+        amount: parentTotal.toFixed(2),
         currency: "EUR",
-        deliveryInfo,
-        formData,
       };
 
       try {
@@ -155,9 +153,9 @@ const PaymentForm: React.FC = () => {
   );
 };
 
-const Payment = () => (
+const Payment: React.FC<PaymentFormProps> = ({ parentTotal }) =>   (
   <Elements stripe={stripePromise} options={{ locale: "en" }}>
-    <PaymentForm />
+    <PaymentForm parentTotal={parentTotal} />
   </Elements>
 );
 

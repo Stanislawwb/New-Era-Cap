@@ -16,8 +16,6 @@ const InformationPage: React.FC = () => {
     value: "",
   })
 
-  console.log(appliedPromoCode);
-
   return (
     <div className="main">
       <div className="shell">

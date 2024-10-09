@@ -16,6 +16,8 @@ const PaymentPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfo | null>(null);
 
+  const [parentTotal, setParentTotal] = useState<number>(0);
+
   useEffect(() => {
     const loadSessionData = async () => {
       const sessionId = sessionStorage.getItem('sessionId');
@@ -68,9 +70,9 @@ const PaymentPage: React.FC = () => {
         <Steps />
 
         <div className="section-form">
-          <PaymentForm />
+          <PaymentForm parentTotal={parentTotal} />
 
-          {deliveryInfo && <Sidebar delivery={deliveryInfo} />}
+          {deliveryInfo && <Sidebar delivery={deliveryInfo} setParentTotal={setParentTotal} />}
         </div>
       </div>
     </div>
