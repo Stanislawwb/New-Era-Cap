@@ -136,7 +136,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
           },
         },
         codeName: appliedPromoCode.name || null,  
-        codeAmount: appliedPromoCode.amount || 0,
+        discountAmount: appliedPromoCode.amount || 0,
+        discountInPercenTage: appliedPromoCode.discount,
         timestamp
       };
 

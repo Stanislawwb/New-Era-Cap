@@ -6,7 +6,7 @@ export interface SessionData {
   sessionId: string;
   formData: FormData;
   codeName?: string | null;
-  codeAmount?: number;
+  discountAmount?: number;
   timestamp?: any;
 }
 

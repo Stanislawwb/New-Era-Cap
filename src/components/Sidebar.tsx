@@ -32,6 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
     name: null,
     amount: 0,
     value: "",
+    discount: 0,
   });
 
   const { applyPromoCode, removePromoCode } = usePromoCode(({ name, amount, total }) => {
@@ -51,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
           setPromoCode((prev) => ({
             ...prev,
             name: sessionData.codeName || null,
-            amount: sessionData.codeAmount || 0
+            amount: sessionData.discountAmount || 0
           }));
 
           if (sessionData.formData && sessionData.formData.delivery) {
@@ -78,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
             sessionId: getSessionId(),
             formData,
             codeName: promoCode.name || undefined,
-            codeAmount: promoCode.amount || undefined
+            discountAmount: promoCode.amount || undefined
           };
           
           if (existingSession) {
@@ -125,23 +126,23 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
     const promoCodeResponse = await applyPromoCode(promoCode.value, subTotal);
   
     if (promoCodeResponse) {
-      const { name, amount } = promoCodeResponse;
+      const { name, amount, discount } = promoCodeResponse;
   
       setPromoCode({
           name: name,
           amount: amount,
           value: promoCode.value,
+          discount: discount,
       });
 
       if (setAppliedPromoCode) {
         setAppliedPromoCode({
           name: name,
           amount: amount,
-          value: promoCode.value,
+          value: promoCode.value,  
+          discount: discount,        
         });
       }
-
-      console.log(promoCode)
       
       setError(false);
     } else {
@@ -161,6 +162,7 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
       name: null,
       amount: 0,
       value: "",
+      discount: 0,
     })
 
     setError(false);

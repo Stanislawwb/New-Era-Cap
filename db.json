@@ -669,6 +669,20 @@
       "amount": "53.50",
       "currency": "EUR",
       "id": 21
+    },
+    {
+      "sessionId": "ea498ca3-f677-4756-812e-e889350710d5",
+      "paymentMethodId": "pm_1Q827P00mgxSrJbWU3g46z5M",
+      "amount": "45.50",
+      "currency": "EUR",
+      "id": 22
+    },
+    {
+      "sessionId": "8e2a965d-f028-4644-a109-962e22525871",
+      "paymentMethodId": "pm_1Q8OF000mgxSrJbWVUGeBeDe",
+      "amount": "54.50",
+      "currency": "EUR",
+      "id": 23
     }
   ],
   "sessions": [
@@ -1749,6 +1763,68 @@
       "codeAmount": 4.5,
       "timestamp": "Wed Oct 09 2024 18:43:35 GMT+0300 (Eastern European Summer Time)",
       "id": 62
+    },
+    {
+      "sessionId": "ea498ca3-f677-4756-812e-e889350710d5",
+      "formData": {
+        "email": "baxor@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Sloane",
+        "lastName": "Tran",
+        "addressFinder": "Ab magna sunt culpa",
+        "tel": "+1 (187) 247-4067",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "timestamp": "Wed Oct 09 2024 18:47:46 GMT+0300 (Eastern European Summer Time)",
+      "id": 63,
+      "codeName": "SUMMER10",
+      "codeAmount": 4.5
+    },
+    {
+      "sessionId": "159d59f2-736f-479a-9d0a-2cabd24b837b",
+      "formData": {
+        "email": "dulubin@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Nicholas",
+        "lastName": "Estes",
+        "addressFinder": "Quia quo deserunt fa",
+        "tel": "+1 (918) 174-1311",
+        "delivery": {
+          "method": "express",
+          "price": 13
+        }
+      },
+      "codeName": "DEAL50",
+      "discountAmount": 22.5,
+      "discountInPercenTage": 50,
+      "timestamp": "Thu Oct 10 2024 17:58:48 GMT+0300 (Eastern European Summer Time)",
+      "id": 64
+    },
+    {
+      "sessionId": "8e2a965d-f028-4644-a109-962e22525871",
+      "formData": {
+        "email": "mediqubyli@mailinator.com",
+        "subscribe": false,
+        "country": "France",
+        "firstName": "Dana",
+        "lastName": "Merritt",
+        "addressFinder": "Pariatur Eos cupid",
+        "tel": "+1 (898) 317-6637",
+        "delivery": {
+          "method": "express",
+          "price": 14
+        }
+      },
+      "codeName": "SUMMER10",
+      "discountAmount": 4.5,
+      "discountInPercenTage": 10,
+      "timestamp": "Thu Oct 10 2024 18:25:00 GMT+0300 (Eastern European Summer Time)",
+      "id": 65
     }
   ]
 }

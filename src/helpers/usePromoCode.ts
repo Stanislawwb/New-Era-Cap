@@ -4,7 +4,7 @@ interface PromoCode {
 }
 
 const usePromoCode = (updatePromoCode: (promoCode: { name: string; amount: number; total: string }) => void) => {
-  const applyPromoCode = async (appliedPromoCode: string, subTotal: number): Promise<{ name: string; amount: number } | null> => {
+  const applyPromoCode = async (appliedPromoCode: string, subTotal: number): Promise<{ name: string; discount: number; amount: number } | null> => {
     let finalTotal = subTotal;
   
     try {
@@ -25,6 +25,7 @@ const usePromoCode = (updatePromoCode: (promoCode: { name: string; amount: numbe
         return {
           name: promoCode.name,
           amount: discountAmount,
+          discount: promoCode.discount,
         };
       } else {
         return null;

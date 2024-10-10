@@ -35,4 +35,5 @@ export interface PromoCode {
     name: string | null;
     amount: number;
     value: string;
+    discount: number;
 }

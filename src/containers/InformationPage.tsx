@@ -14,6 +14,7 @@ const InformationPage: React.FC = () => {
     name: null,
     amount: 0,
     value: "",
+    discount: 0,
   })
 
   return (
