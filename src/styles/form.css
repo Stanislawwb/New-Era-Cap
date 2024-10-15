@@ -295,3 +295,9 @@
     display: inline-block !important;
   }
 }
+
+@media (max-width: 1023px) {
+  .form .form__inner {
+    padding: 32px;
+  }
+}
