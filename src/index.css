@@ -9,17 +9,19 @@
 @import "./styles/helpers.css";
 @import "./styles/btn.css";
 @import "./styles/product.css";
+@import "./styles/section-products.css";
+@import "./styles/filter.css";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: "Proxima Nova Rg", sans-serif;
+	font-family: "Proxima Nova Rg", sans-serif;
 }
 
 .main {
-  background-color: #f6f6f6;
+	background-color: #f6f6f6;
 }

@@ -3,11 +3,8 @@
 \* ------------------------------------------------------------ */
 
 .logo {
-  position: absolute;
   display: block;
   max-width: 65px;
-  left: 50%;
-  transform: translateX(-50%);
   text-decoration: none;
 
   img {
@@ -18,7 +15,6 @@
 
 @media (max-width: 768px) {
   .logo {
-    position: relative;
     left: unset;
     transform: none;
   }

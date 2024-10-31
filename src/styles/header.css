@@ -4,10 +4,10 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
-  padding: 23px 32px;
+  padding: 20px 32px;
 
   .header__access {
     margin-left: auto;
@@ -22,6 +22,8 @@
     font-weight: 700;
     font-size: 16px;
     letter-spacing: -1.05px;
+    position: absolute;
+    right: 32px;
   }
 
   .header__access p {
@@ -32,5 +34,9 @@
 @media (max-width: 768px) {
   .header {
     padding: 15px;
+
+    .header__access {
+      display: none;
+    }
   }
 }

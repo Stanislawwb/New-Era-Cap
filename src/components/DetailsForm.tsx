@@ -120,8 +120,6 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
   }, [countries, setValue]);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {    
-    console.log(data)
-
     try {
       const sessionId = getSessionId();
       const timestamp = new Date().toString();
