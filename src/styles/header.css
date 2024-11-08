@@ -3,40 +3,54 @@
 \* ------------------------------------------------------------ */
 
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding: 20px 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	padding: 20px 32px;
 
-  .header__access {
-    margin-left: auto;
-  }
+	.header__access {
+		margin-left: auto;
+	}
 
-  .header__access {
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #999;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: -1.05px;
-    position: absolute;
-    right: 32px;
-  }
+	.header__access {
+		position: absolute;
+		right: 32px;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: #999;
+		font-weight: 700;
+		font-size: 16px;
+		letter-spacing: -1.05px;
+	}
 
-  .header__access p {
-    margin-left: 10px;
-  }
+	.header__access p {
+		margin-left: 10px;
+	}
+
+	.header__cart {
+		position: absolute;
+		right: 32px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.header__cart svg {
+		width: 40px;
+		height: auto;
+	}
 }
 
 @media (max-width: 768px) {
-  .header {
-    padding: 15px;
+	.header {
+		padding: 15px;
 
-    .header__access {
-      display: none;
-    }
-  }
+		.header__access {
+			display: none;
+		}
+	}
 }

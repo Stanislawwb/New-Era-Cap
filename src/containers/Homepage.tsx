@@ -1,106 +1,44 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import Filters from "../components/Homepage/Filters";
 import Products from "../components/Homepage/Products";
 import ProductsHeader from "../components/Homepage/ProductsHeader";
 import useFetchProducts from "../helpers/useFetchProducts";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
+import { setProducts } from "../state/products/productsSlice";
+import { useSelector } from "react-redux";
+import { setSortOption } from "../state/products/productsSlice";
 
 const Homepage = () => {
     const {products, loading} = useFetchProducts();
-    const [sortOption, setSortOption] = useState<string>("title-ascending");
-    const [isOpen, setIsOpen] = useState<boolean>(true);
-    const [gridColumns, setGridColumns] = useState<number>(3);
-    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-    const [selectedColors, setSelectedColors] = useState<string[]>([]);
 
-    const handleTypeChange = (type: string) => {
-        setSelectedTypes((prev) => 
-            prev.includes(type) ? prev.filter((t) => t !== type) : [...prev,type]
-        )
-    }
+    const filteredProducts = useSelector((state: RootState) => state.products.filteredProducts);
+    const isOpen = useSelector((state: RootState) => state.products.isOpen);
+    const initialValueForSortOption  = useSelector((state: RootState) => state.products.sortOption);
 
-    const handleColorChange = (color: string) => {
-        setSelectedColors((prev) =>
-            prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
-        )
-    }
+    const dispatch = useDispatch<AppDispatch>();
 
-    const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSortOption(event.target.value);
-    }
+    useEffect(() =>{
+        if (products) {
+            dispatch(setProducts(products))
 
-    const handleIsOpen = () => {
-        setIsOpen(!isOpen);
-    }
-
-    const handleChangeView = () => {
-        setGridColumns((prev) => {
-            if (prev === 3 ) return 4;
-            if (prev === 4 ) return 5;
-            if (prev === 5 ) return 6;
-            return 3
-        })
-    }
-
-    const filteredProducts = products.filter((product) => {
-        const matchesType = selectedTypes.length === 0 || selectedTypes.includes(product.type);
-        const matchesColor = selectedColors.length === 0 || selectedColors.includes(product.color);
-        return matchesType && matchesColor;
-    });
-
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        switch (sortOption) {
-            case "title-ascending":
-                return a.name.localeCompare(b.name);
-            case "title-descending":
-                return b.name.localeCompare(a.name);
-            case "price-ascending":
-                return a.price - b.price;
-            case "price-descending":
-                return b.price - a.price;
-            default:
-                return 0;
+            dispatch(setSortOption(initialValueForSortOption));
         }
-    });
-
-    const clearFilters = () => {
-        setSelectedTypes([]);
-        setSelectedColors([]);
-    }
-
-    const selectedTypeCount = selectedTypes.length;
-    const selectedColorCount = selectedColors.length;
-
+    }, [products, initialValueForSortOption, dispatch]);
+    
     return (
         <div className="section-products">
-            <ProductsHeader 
-                count={sortedProducts.length} 
-                onSortChange={handleSortChange} 
-                onFilterClick={handleIsOpen} 
-                onChangeView={handleChangeView} 
-                gridColumns={gridColumns} 
-                onClearFilters={clearFilters}
-                selectedTypeCount={selectedTypeCount}
-                selectedColorCount={selectedColorCount}
-            />
+            <ProductsHeader/>
 
             <div className="section__content">
                 <div className={`section__sidebar ${isOpen ? '' : 'hidden'}`}>
-                    <Filters 
-                        products={products} 
-                        onTypeChange={handleTypeChange} 
-                        onColorChange={handleColorChange}
-                        selectedTypes={selectedTypes} 
-                        selectedColors={selectedColors}
-                    />
-                </div>  
+                    <Filters />
+                </div>
 
                 { loading ? (
                     <p>Loading products...</p>
-                ) : sortedProducts.length > 0 ? (
-                    <Products 
-                        products={sortedProducts} 
-                        gridColumns={gridColumns} 
-                    />
+                ) : filteredProducts.length > 0 ? (
+                    <Products />
                 ) : (
                     <p>No products found.</p>
                 )}

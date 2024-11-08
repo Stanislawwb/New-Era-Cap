@@ -1,51 +1,105 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Product } from '../../helpers/useFetchProducts'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
-interface ProductsProps {
-  products: Product[];
-  gridColumns: number;
-}
+const Products: React.FC = () => {
+	const [visibleProductsCount, setVisibleProductsCount] = useState<number>(6);
+	const [cartItems, setCartItems] = useState<Product[]>([]);
+	const [notification, setNotification] = useState<string | null>(null);
 
-const Products: React.FC<ProductsProps> = ({products, gridColumns}) => {
-  const [visibleProductsCount, setVisibleProductsCount] = useState<number>(6);
+	const filteredProducts = useSelector((state: RootState) => state.products.filteredProducts);
+	const gridColumns = useSelector((state: RootState) => state.products.gridColumns);    
 
+	useEffect(() => {
+		const storedCartItems = sessionStorage.getItem('cartItems');
 
-  const handleLoadMore = () => {
-	setVisibleProductsCount((prev) => {
-		const newCount = prev + 6;
+		if(storedCartItems) {
+			setCartItems(JSON.parse(storedCartItems));
+		}
+	}, []);
 
-		return newCount > products.length ? products.length : newCount;
-	});	
-  }
+	const handleLoadMore = () => {
+		setVisibleProductsCount((prev) => {
+			const newCount = prev + 6;
 
-  const slicedProducts = products.slice(0, visibleProductsCount);
+			return newCount > filteredProducts.length ? filteredProducts.length : newCount;
+		});	
+	}
+
+	const slicedProducts = filteredProducts.slice(0, visibleProductsCount);
+
+	const handleAddToCart = (product: Product) => {
+		const productExists = cartItems.find((item: Product) => item.id === product.id);
+
+		if(!productExists) {
+			const updatedCart = [...cartItems, product];
+
+			setCartItems(updatedCart);
+
+			sessionStorage.setItem('cartItems', JSON.stringify(updatedCart));
+
+			setNotification(`${product.name} has been added to your cart.`)
+		} else {
+			const updatedCart = cartItems.filter((item: Product) => item.id !== product.id);
+
+			setCartItems(updatedCart);
+			sessionStorage.setItem('cartItems', JSON.stringify(updatedCart));
+
+			setNotification(`${product.name} has been removed from your cart.`)
+		}
+
+		setTimeout(() => {
+			setNotification(null);
+		}, 4000)
+	}
 
   return (
     <div className='section__inner'>
+		{
+			notification && (
+				<div className="notification">
+					{notification}
+				</div>
+			)
+		}
+
 		<div className="section__products" style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}>
 			{
-				slicedProducts.map((product) => (
-				<div className="section__product" key={product.id}>
-					<div className="section__image">
-						<img src={product.imageUrl} alt="" />
-					</div>
+				slicedProducts.map((product) => {
+					const inCart = cartItems.some((item) => item.id === product.id);
 
-					<span>{product.type}</span>
-					
-					<span className='section__product-name'>{product.name}</span>
-					
-					<span>{product.currency}{product.price}</span>
-				</div>
-				))
+					return (
+						<div className="section__product" key={product.id}>
+							<div className="section__image">
+								<img src={product.imageUrl} alt="" />
+							</div>
+							
+							<div className="section__content">
+								<div className="section__info">
+									<span>{product.type}</span>
+									
+									<span className='section__product-name'>{product.name}</span>
+									
+									<span>{product.currency}{product.price}</span>
+								</div>
+
+								<button onClick={() => handleAddToCart(product)}>
+									{inCart ? 'Remove From Cart' : 'Add To Cart'}
+								</button>
+							</div>
+						</div>
+					);
+				})
 			}      
 		</div>
 
 		<div className="section__actions">
-			{ visibleProductsCount < products.length && (
+			{ visibleProductsCount < filteredProducts.length && (
 				<button onClick={handleLoadMore}>Load More</button>
 			)}
 
-			<span>Showing {slicedProducts.length} of {products.length} Products</span>
+			<span>Showing {slicedProducts.length} of {filteredProducts.length} Products</span>
 		</div>
     </div>
   )

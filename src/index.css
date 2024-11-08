@@ -11,6 +11,7 @@
 @import "./styles/product.css";
 @import "./styles/section-products.css";
 @import "./styles/filter.css";
+@import "./styles/notification.css";
 
 * {
 	margin: 0;
