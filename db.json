@@ -2,120 +2,120 @@
   "products": [
     {
       "id": 1,
-      "name": "Oakland Athletics MLB Zodiac Dark Green 59FIFTY Fitted Cap",
-      "type": "59FIFTY",
+      "name": "LA Dodgers Image Harris Tweed® Dark Green 9TWENTY Adjustable Cap",
+      "type": "39THIRTY",
       "color": "Dark Green",
-      "price": 45,
+      "price": 65,
       "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599097_3QL.jpg?v=1724935729&width=512"
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60646181_2.jpg?v=1730799135&width=512"
     },
     {
       "id": 2,
-      "name": "Los Angeles Dodgers MLB Bucket Hat",
-      "type": "BUCKETS",
-      "color": "Navy Blue",
-      "price": 35,
+      "name": "Boston Red Sox Image Harris Tweed® Dark Red 9TWENTY Adjustable Cap",
+      "type": "9TWENTY",
+      "color": "Red",
+      "price": 65,
       "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599098_3QL.jpg?v=1724935729&width=512"
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60580662_3QL.jpg?v=1730307084&width=512"
     },
     {
       "id": 3,
-      "name": "New York Yankees MLB 9TWENTY Adjustable Cap",
-      "type": "9TWENTY",
+      "name": "New York Yankees Quilted Black 9FORTY Adjustable Cap",
+      "type": "9FORTY ",
       "color": "Black",
-      "price": 30,
-      "currency": "$",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599096_3QL.jpg?v=1724935729&width=512"
+      "price": 28,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60580844_3QL.jpg?v=1730307454&width=512"
     },
     {
       "id": 4,
-      "name": "Chicago Bulls NBA Knit Beanie",
-      "type": "KNITS",
-      "color": "Red",
-      "price": 25,
-      "currency": "$",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60576434.jpg?v=1724935729&width=512"
+      "name": "Manchester United FC Youth Navy Bucket Hat",
+      "type": "Buckets",
+      "color": "Black",
+      "price": 32,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60593317_1.jpg?v=1729803001&width=512"
     },
     {
       "id": 5,
-      "name": "Boston Red Sox MLB 59FIFTY Fitted Cap",
-      "type": "59FIFTY",
+      "name": "Ducati Misano Race Special All Over Print White Bucket Hat",
+      "type": "Buckets",
       "color": "Maroon",
-      "price": 45,
-      "currency": "£",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/70483233_3QL.jpg?v=1724935729&width=512"
+      "price": 47,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60571060_1.jpg?v=1729798970&width=512"
     },
     {
       "id": 6,
-      "name": "San Francisco Giants MLB Bucket Hat",
-      "type": "BUCKETS",
-      "color": "Orange",
-      "price": 40,
+      "name": "Jacksonville Jaguars AC Performance Turquoise 9SEVENTY Stretch Snap Adjustable Cap",
+      "type": "9SEVENTY",
+      "color": "Turquoise ",
+      "price": 34,
       "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60538373_1.jpg?v=1729794459&width=512"
     },
     {
       "id": 7,
-      "name": "Houston Astros MLB 9TWENTY Adjustable Cap",
-      "type": "9TWENTY",
-      "color": "White",
-      "price": 32,
-      "currency": "$",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "name": "Oakland Athletics MLB Suede Grey 39THIRTY A-Frame Stretch Fit Cap",
+      "type": "39THIRTY ",
+      "color": "Gray",
+      "price": 30,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60659449_3QL.jpg?v=1729804563&width=512"
     },
     {
       "id": 8,
-      "name": "Toronto Blue Jays MLB Knit Beanie",
-      "type": "KNITS",
-      "color": "Light Blue",
-      "price": 28,
-      "currency": "$",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599104_3QL.jpg?v=1724935729&width=512"
+      "name": "New York Yankees MLB Suede Dark Brown 39THIRTY A-Frame Stretch Fit Cap",
+      "type": "39THIRTY",
+      "color": "Dark Brown",
+      "price": 30,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60659446_3QL.jpg?v=1729804454&width=512"
     },
     {
       "id": 9,
-      "name": "Philadelphia Phillies MLB 59FIFTY Fitted Cap",
-      "type": "59FIFTY",
-      "color": "Red",
-      "price": 45,
+      "name": "Alpine Racing x Qatar Esteban Ocon Dark Red 9FIFTY Snapback Cap",
+      "type": "9FIFTY",
+      "color": "Dark Red",
+      "price": 41,
       "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60647666_3QL.jpg?v=1729803813&width=512"
     },
     {
       "id": 10,
-      "name": "Cleveland Indians MLB Bucket Hat",
-      "type": "BUCKETS",
-      "color": "Brown",
+      "name": "Oakland Raiders Cotton Canvas Black Retro Crown 9FIFTY Strapback Cap",
+      "type": "9FIFTY",
+      "color": "Black",
       "price": 38,
-      "currency": "$",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60645799_1.jpg?v=1729517014&width=512"
     },
     {
       "id": 11,
-      "name": "Seattle Mariners MLB 9TWENTY Adjustable Cap",
-      "type": "9TWENTY",
-      "color": "Teal",
-      "price": 33,
+      "name": "LA Dodgers Team Colour Dark Blue Retro Crown 9FIFTY Clipback Cap",
+      "type": "9FIFTY",
+      "color": "Dark Blue",
+      "price": 69,
       "currency": "€",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60597887_1.jpg?v=1730796453&width=512"
     },
     {
       "id": 12,
-      "name": "Detroit Tigers MLB Knit Beanie",
-      "type": "KNITS",
-      "color": "Navy Blue",
-      "price": 26,
-      "currency": "£",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "name": "LA Dodgers MLB World Series Champions 2024 Black 9SEVENTY Stretch Snap",
+      "type": "9SEVENTY",
+      "color": "Black",
+      "price": 32,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/14520292.jpg?v=1730415795&width=512"
     },
     {
       "id": 13,
-      "name": "Detroit Tigers MLB Knit Beanie",
-      "type": "KNITS",
-      "color": "Navy Blue",
-      "price": 26,
-      "currency": "£",
-      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60599102_3QL.jpg?v=1724935729&width=512"
+      "name": "LA Lakers AC Performance Purple 9SEVENTY Stretch Snap Adjustable Cap",
+      "type": "9SEVENTY",
+      "color": "Purple",
+      "price": 32,
+      "currency": "€",
+      "imageUrl": "https://www.neweracap.co.uk/cdn/shop/files/60538417_1.jpg?v=1730800052&width=512"
     }
   ],
   "promoCodes": [
@@ -461,6 +461,25 @@
       "id": 1,
       "codeName": "DEAL50",
       "discountAmount": 22.5
+    },
+    {
+      "sessionId": "0a1abf02-061d-4330-a37c-da82028bff58",
+      "formData": {
+        "email": "myzyry@mailinator.com",
+        "subscribe": false,
+        "country": "Bulgaria",
+        "firstName": "Debra",
+        "lastName": "Hahn",
+        "addressFinder": "Ut aut voluptatibus ",
+        "tel": "+1 (792) 348-3334",
+        "delivery": {
+          "method": "standard",
+          "price": 5
+        }
+      },
+      "discountInPercenTage": 0,
+      "timestamp": "Tue Nov 05 2024 15:15:03 GMT+0200 (Eastern European Standard Time)",
+      "id": 2
     }
   ]
 }
