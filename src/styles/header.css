@@ -37,6 +37,23 @@
 		right: 32px;
 		top: 50%;
 		transform: translateY(-50%);
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		align-items: flex-start;
+		gap: 4px;
+	}
+
+	.header__cart span {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 14px;
+		background-color: #000;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		color: #fff;
 	}
 
 	.header__cart svg {

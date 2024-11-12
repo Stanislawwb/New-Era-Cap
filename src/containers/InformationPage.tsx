@@ -2,7 +2,8 @@ import Steps from "../components/Steps";
 import DetailsForm from "../components/DetailsForm";
 import Sidebar from "../components/Sidebar";
 import { DeliveryInfo, PromoCode } from "../types/detailsFormTypes";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InformationPage: React.FC = () => {
   const [delivery, setDelivery] = useState<DeliveryInfo>({
@@ -16,6 +17,19 @@ const InformationPage: React.FC = () => {
     value: "",
     discount: 0,
   })
+
+  const navigate = useNavigate();
+  
+  
+  useEffect(() => {
+    const hasProductsInCart = localStorage.getItem('cartItems');
+    
+    if (!hasProductsInCart) {
+      navigate('/');
+    } 
+  }, [navigate])
+
+
 
   return (
     <div className="main">

@@ -1,14 +1,20 @@
 .required {
-  color: #b52025;
-  font-weight: 700;
+	color: #b52025;
+	font-weight: 700;
 }
 
 .gray {
-  color: rgb(102, 102, 102);
+	color: rgb(102, 102, 102);
 }
 
 .error {
-  color: #b52025;
-  font-weight: 700;
-  font-size: 14px;
+	color: #b52025;
+	font-weight: 700;
+	font-size: 14px;
+}
+
+.button-disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
 }

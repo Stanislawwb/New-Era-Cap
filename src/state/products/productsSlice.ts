@@ -58,7 +58,7 @@ export const productsSlice = createSlice({
             const maxColumns = 6;
             const minColumns = 3;
 
-            if ( state.gridColumns >=maxColumns || state.filteredProducts.length <= state.gridColumns) {
+            if ( state.gridColumns >= maxColumns || state.filteredProducts.length <= state.gridColumns ) {
                 state.gridColumns = minColumns;
             } else {
                 state.gridColumns = state.gridColumns + 1;
