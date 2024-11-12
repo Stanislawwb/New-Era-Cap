@@ -36,6 +36,15 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
     }
   };
 
+  useEffect(() => {
+    if (selectedCountry) {
+      const updatedDelivery = { method: "standard", price: selectedCountry.delivery.standard };
+      setLocalDelivery(updatedDelivery); 
+      setDelivery(updatedDelivery);
+    }
+  }, [selectedCountry, setDelivery]);
+  
+
   const handleDeliveryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedCountry) {
       const method = e.target.id as "standard" | "express";
@@ -71,6 +80,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
     
     fetchCountries();
   }, []);
+
 
   useFetchUserCountry(countries, setSelectedCountry, setDelivery, setValue);
 
@@ -208,8 +218,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
               <div className="form__select">
                 <select
                   id="country"
-                  {...register("country", { required: true })}
-                  onChange={handleCountryChange}
+                  {...register("country", { required: true, onChange: (e) => handleCountryChange(e) })}
                   value={selectedCountry ? selectedCountry.name : ""}
                 >
                   {countries.map((country) => (
@@ -431,41 +440,39 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
 
         <div className="form__foot">
           {selectedCountry && (
-            <>
-              <>
-                <div className="form__title-wrapper">
-                  <h2>Delivery Method</h2>
+            <>              
+              <div className="form__title-wrapper">
+                <h2>Delivery Method</h2>
+              </div>
+
+              <div className="form__radio">
+                <div className="form__group">
+                  <input
+                    type="radio"
+                    id="standard"
+                    value={selectedCountry.delivery.standard
+                        .toFixed(2)
+                        .replace(".", ",")}
+                    checked={localDelivery.method === "standard"}
+                    {...register("delivery", {onChange: (e) => handleDeliveryChange(e)})}
+                  />
+
+                  <label htmlFor="standard">
+                    <div className="form__radio-info">
+                      Delivered: <span>Standard (3-6 working days)</span>{" "}
+                      <span className="gray">Standard</span>
+                    </div>
+
+                    <span>
+                      €
+                      {selectedCountry.delivery.standard
+                        .toFixed(2)
+                        .replace(".", ",")}
+                    </span>
+                  </label>
                 </div>
-
-                <div className="form__radio">
-                  <div className="form__group">
-                    <input
-                      type="radio"
-                      id="standard"
-                      value={selectedCountry.delivery.standard
-                          .toFixed(2)
-                          .replace(".", ",")}
-                      defaultChecked
-                      {...register("delivery")}
-                      onChange={handleDeliveryChange}
-                    />
-
-                    <label htmlFor="standard">
-                      <div className="form__radio-info">
-                        Delivered: <span>Standard (3-6 working days)</span>{" "}
-                        <span className="gray">Standard</span>
-                      </div>
-
-                      <span>
-                        €
-                        {selectedCountry.delivery.standard
-                          .toFixed(2)
-                          .replace(".", ",")}
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </>
+              </div>
+              
               {selectedCountry.delivery.express && (
                 <div className="form__radio">
                   <div className="form__group">
@@ -475,8 +482,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
                       value={selectedCountry.delivery.express
                         .toFixed(2)
                         .replace(".", ",")}
-                      {...register("delivery")}
-                      onChange={handleDeliveryChange}
+                      checked={localDelivery.method === "express"}
+                      {...register("delivery", { onChange: (e) => handleDeliveryChange(e) })}
                     />
 
                     <label htmlFor="express">
