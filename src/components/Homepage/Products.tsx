@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Product } from '../../helpers/useFetchProducts'
 import { useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
+import { AppDispatch, RootState } from '../../state/store';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../state/cart/cartSlice';
 
 const Products: React.FC = () => {
 	const [visibleProductsCount, setVisibleProductsCount] = useState<number>(6);
-	const [cartItems, setCartItems] = useState<Product[]>([]);
 	const [notification, setNotification] = useState<string | null>(null);
+	const [isButtonDisabled, setIsButtonDisabled] = useState<{[key: string]: boolean}>({});
 
 	const filteredProducts = useSelector((state: RootState) => state.products.filteredProducts);
 	const gridColumns = useSelector((state: RootState) => state.products.gridColumns);    
 
-	useEffect(() => {
-		const storedCartItems = sessionStorage.getItem('cartItems');
+	const dispatch = useDispatch<AppDispatch>();
 
-		if(storedCartItems) {
-			setCartItems(JSON.parse(storedCartItems));
-		}
-	}, []);
+	const cart = useSelector((state: RootState) => state.cart.cartItems);
 
 	const handleLoadMore = () => {
 		setVisibleProductsCount((prev) => {
@@ -30,25 +28,16 @@ const Products: React.FC = () => {
 	const slicedProducts = filteredProducts.slice(0, visibleProductsCount);
 
 	const handleAddToCart = (product: Product) => {
-		const productExists = cartItems.find((item: Product) => item.id === product.id);
+		dispatch(addToCart(product));
 
-		if(!productExists) {
-			const updatedCart = [...cartItems, product];
+		setNotification(`${product.name} has been added to your cart.`)
 
-			setCartItems(updatedCart);
+		setIsButtonDisabled((prev) => ({...prev, [product.id]: true}));
 
-			sessionStorage.setItem('cartItems', JSON.stringify(updatedCart));
-
-			setNotification(`${product.name} has been added to your cart.`)
-		} else {
-			const updatedCart = cartItems.filter((item: Product) => item.id !== product.id);
-
-			setCartItems(updatedCart);
-			sessionStorage.setItem('cartItems', JSON.stringify(updatedCart));
-
-			setNotification(`${product.name} has been removed from your cart.`)
-		}
-
+		setTimeout(() => {
+			setIsButtonDisabled((prev) => ({...prev, [product.id]: false}));
+		}, 2000)
+		
 		setTimeout(() => {
 			setNotification(null);
 		}, 4000)
@@ -67,8 +56,6 @@ const Products: React.FC = () => {
 		<div className="section__products" style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}>
 			{
 				slicedProducts.map((product) => {
-					const inCart = cartItems.some((item) => item.id === product.id);
-
 					return (
 						<div className="section__product" key={product.id}>
 							<div className="section__image">
@@ -81,11 +68,15 @@ const Products: React.FC = () => {
 									
 									<span className='section__product-name'>{product.name}</span>
 									
-									<span>{product.currency}{product.price}</span>
+									<span>{product.currency} {product.price.toFixed(2)}</span>
 								</div>
 
-								<button onClick={() => handleAddToCart(product)}>
-									{inCart ? 'Remove From Cart' : 'Add To Cart'}
+								<button 
+									onClick={() => handleAddToCart(product)}
+									disabled={isButtonDisabled[product.id]}
+									className={isButtonDisabled[product.id] ? 'button-disabled' : ''}
+								>
+									{ isButtonDisabled[product.id]  ? 'Adding...' :  'Add To Cart'}
 								</button>
 							</div>
 						</div>
