@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
-import useFetchProducts from "../helpers/useFetchProducts";
 import usePromoCode from "../helpers/usePromoCode";
 import { FormData, PromoCode } from "../types/detailsFormTypes";
 import { getSession, updateSession, createSession, getSessionById, getSessionId } from "../http/sessionService";
 import { SessionData } from "../http/sessionService";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
+import { useDispatch } from "react-redux";
+import { removeFromCart, decreaseQuantity, increaseQuantity } from "../state/cart/cartSlice";
 
 interface DeliveryInfo {
   method: string;
@@ -21,7 +23,12 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setParentTotal }) => {
-  const { products, loading } = useFetchProducts();
+  const cartItems  = useSelector((state: RootState) => state.cart.cartItems);
+  const dispatch = useDispatch<AppDispatch>();
+  const productsInCartCount =  cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const navigate = useNavigate();
+
   const [error, setError] = useState<boolean>(false);
   const [subTotal, setSubTotal] = useState<number>(0);
   const [total, setTotal] = useState<string>("0");
@@ -97,9 +104,9 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
   }, [formData, promoCode]);
   
   useEffect(() => {
-    const finalSubTotal = products.reduce((acc, product) => acc + product.price, 0);
+    const finalSubTotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     setSubTotal(finalSubTotal);
-  }, [products]);
+  }, [cartItems]);
 
   useEffect(() => {
     let finalTotal = subTotal;
@@ -185,22 +192,12 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
       <div className="sidebar__inner">
         <div className="sidebar__head">
           <h2>Order summary</h2>
-          {loading && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <ClipLoader color="#000" loading={loading} size={150} />
-            </div>
-          )}
 
           <div className="sidebar__subtotal sidebar__row">
             <p>
               Subtotal{" "}
               <span>
-                ({products.length} {products.length > 1 ? "items" : "item"})
+                ({productsInCartCount} {productsInCartCount > 1 ? "items" : "item"})
               </span>
             </p>
 
@@ -332,7 +329,7 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
             onClick={() => setIsCartOpen(!isCartOpen)}
           >
             <h3>
-              Your cart <span className="gray">{`(${products.length})`}</span>
+              Your cart <span className="gray">{`(${cartItems.length})`}</span>
             </h3>
 
             <button type="button">
@@ -357,21 +354,39 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
             style={{ height: `${sectionCartHeight}px` }}
           >
             <div className="products" ref={cartRef}>
-              {products.map((product) => (
-                <div className="product" key={product.id}>
+              {cartItems.map((item) => (
+                <div className="product" key={item.product.id}>
                   <div className="product__image">
-                    <img src={product.imageUrl} alt="" />
+                    <img src={item.product.imageUrl} alt="" />
                   </div>
 
                   <div className="product__content">
-                    <h5>{product.type}</h5>
-                    <p>{product.name}</p>
-                    <span>Colour: {product.color}</span>
+                    <h5>{item.product.type}</h5>
+                    <p>{item.product.name}</p>                    
 
                     <b>
-                      {product.currency}
-                      {product.price.toFixed(2).replace(".", ",")}
+                      {item.product.currency}
+                      {item.product.price.toFixed(2).replace(".", ",")}
                     </b>
+
+                    <div className="product__actions">
+                      <div className="product__quantity">
+                        <button onClick={() => dispatch(decreaseQuantity(item.product))} className="product__quantity-item">-</button>
+
+                        <span className="product__quantity-item">{item.quantity}</span>
+
+                        <button onClick={() => dispatch(increaseQuantity(item.product))} className="product__quantity-item">+</button>
+                      </div>
+
+                      <button 
+                        onClick={() => {
+                          dispatch(removeFromCart(item.product));
+                          
+                          if(productsInCartCount === 1) {
+                            navigate('/');
+                          }
+                        }} className="product__remove">Remove</button>
+                    </div>
                   </div>
                 </div>
               ))}

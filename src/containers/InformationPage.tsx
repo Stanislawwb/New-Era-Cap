@@ -4,6 +4,8 @@ import Sidebar from "../components/Sidebar";
 import { DeliveryInfo, PromoCode } from "../types/detailsFormTypes";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 
 const InformationPage: React.FC = () => {
   const [delivery, setDelivery] = useState<DeliveryInfo>({
@@ -19,17 +21,15 @@ const InformationPage: React.FC = () => {
   })
 
   const navigate = useNavigate();
-  
+
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   
   useEffect(() => {
-    const hasProductsInCart = localStorage.getItem('cartItems');
-    
-    if (!hasProductsInCart) {
+    if (cartItems.length === 0) {
       navigate('/');
     } 
-  }, [navigate])
 
-
+  }, [cartItems, navigate])
 
   return (
     <div className="main">
