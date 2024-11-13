@@ -9,25 +9,18 @@ import {
 } from "@stripe/react-stripe-js";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { DeliveryDetailsProps } from "./DeliveryDetails";
+import { Link, useNavigate } from "react-router-dom";
 import { getSessionId } from "../http/sessionService";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../state/store";
+import { clearCart } from "../state/cart/cartSlice";
 
-const stripePromise = loadStripe(
-  "pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn"
-);
+
+const stripePromise = loadStripe('pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn');
 
 interface PaymentFormInputs {
   paymentMethod: string;
   nameOnCard: string;
-}
-
-interface PaymentData {
-  paymentMethodId: string;
-  amount: string;
-  currency: string;
-  deliveryInfo: DeliveryDetailsProps['deliveryMethod'];
-  formData: DeliveryDetailsProps['details'];
 }
 
 interface PaymentFormProps {
@@ -36,8 +29,10 @@ interface PaymentFormProps {
 
 const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
   const [isCardChecked, setIsCardChecked] = useState<boolean>(false);
+  const [isPaypalChecked, setIsPaypalChecked] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -94,10 +89,9 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
           throw new Error("failed to save payment data");
         }
 
-        const result = await response.json();
-
+        dispatch(clearCart());
         sessionStorage.clear();
-
+        
         navigate("/");
       } catch (error) {
         console.error("Error saving payment data:", error);
@@ -105,8 +99,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
     }
   };
 
-  const handleCardChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsCardChecked(event.target.value === "card");
+  const handlePaymentMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedMethod = event.target.value;
+    setIsCardChecked(selectedMethod === "card");
+    setIsPaypalChecked(selectedMethod === "paypal");
   };
 
   return (
@@ -114,8 +110,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
       <div className="form__inner">
         <div className="form__title-wrapper">
           <h2>Payment Method</h2>
+
           <img src={lock} alt="" />
         </div>
+
         <div className="form__foot">
           <div className="form__group">
             <input
@@ -123,19 +121,22 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
               id="paypal"
               value="paypal"
               {...register("paymentMethod")}
-              onChange={handleCardChange}
+              onChange={handlePaymentMethodChange}
             />
             <label htmlFor="paypal">Paypal</label>
           </div>
+
           <div className="form__group">
             <input
               type="radio"
               id="card"
               value="card"
               {...register("paymentMethod")}
-              onChange={handleCardChange}
+              onChange={handlePaymentMethodChange}
             />
+
             <label htmlFor="card">Card</label>
+
             {isCardChecked && (
               <>
                 <div className="form__row">
@@ -145,10 +146,18 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ parentTotal }) => {
             )}
           </div>
         </div>
-        <button type="submit" className="btn btn--small" disabled={!stripe}>
-          Place Order
-        </button>
-      </div>
+
+        { isPaypalChecked ? (
+          <Link to="#" className="form__paypal-link btn" >
+            Pay with PayPal 
+          </Link>
+        ) : (
+          <button type="submit" className="btn btn--small" disabled={!stripe}>
+            Place Order
+          </button>
+        )}
+
+      </div>        
     </form>
   );
 };

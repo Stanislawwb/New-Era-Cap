@@ -278,6 +278,18 @@
 	.form__notes p + p {
 		margin-top: 30px;
 	}
+
+	.form__paypal-link {
+		background-color: #0070ba;
+		color: #ffffff;
+		text-decoration: none;
+		text-transform: none;
+		font-weight: bold;
+		text-align: center;
+		display: inline-block;
+		min-width: 200px;
+		width: auto;
+	}
 }
 
 .form--information {
