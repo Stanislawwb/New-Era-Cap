@@ -28,9 +28,13 @@ Through this project, I aimed to demonstrate my skills in **React**, **TypeScrip
    - For PayPal, a placeholder link simulates redirection to the PayPal site.
    - For Credit Card, I've integrated **Stripe** as the payment provider.
 - Using Stripe, the test card credentials are:
+
 Card Number: 4242 4242 4242 4242
+
 Expiration: 04/30
+
 CVC: 123
+
 ZIP: 12345
 
 - When a user places an order with these details, a new entry is created in the database under `payment` with an ID matching the session ID from `sessions`.
