@@ -39,6 +39,14 @@ ZIP: 12345
 
 - When a user places an order with these details, a new entry is created in the database under `payment` with an ID matching the session ID from `sessions`.
 
+### Promotional Codes
+
+The project includes three promotional codes stored in `db.json` that can be applied:
+
+- SUMMER10 - 10% discount
+- SAVE20 - 20% discount
+- DEAL50 - 50% discount
+
 ---
 
 ## Technologies Used
