@@ -1,5 +1,5 @@
 import Steps from "../components/Steps";
-import DetailsForm from "../components/DetailsForm";
+import DetailsForm from "../components/Checkout/DetailsForm";
 import Sidebar from "../components/Sidebar";
 import { DeliveryInfo, PromoCode } from "../types/detailsFormTypes";
 import React, { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 
-const InformationPage: React.FC = () => {
+const CheckoutPage: React.FC = () => {
   const [delivery, setDelivery] = useState<DeliveryInfo>({
     method: "standard",
     price: 0,
@@ -46,4 +46,4 @@ const InformationPage: React.FC = () => {
   );
 };
 
-export default InformationPage;
+export default CheckoutPage;

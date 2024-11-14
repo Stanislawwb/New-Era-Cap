@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import InformationPage from "./containers/InformationPage";
+import Checkout from "./containers/CheckoutPage";
 import PaymentPage from "./containers/PaymentPage";
 import Header from "./components/Header";
 import Homepage from "./containers/Homepage";
@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Homepage />} />
 
-          <Route path="/information" element={<InformationPage />} />          
+          <Route path="/checkout" element={<Checkout />} />          
           
           <Route path="/payment" element={<PaymentPage />} />
 

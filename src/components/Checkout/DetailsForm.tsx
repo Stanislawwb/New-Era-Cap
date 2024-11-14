@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createSession, getSessionById, updateSession } from "../http/sessionService";
-import { FormData, DeliveryInfo, Country, PromoCode } from "../types/detailsFormTypes";
-import useFetchUserCountry from "../helpers/useFetchUserCountry";
-import { getSessionId } from "../http/sessionService";
+import { createSession, getSessionById, updateSession } from "../../http/sessionService";
+import { FormData, DeliveryInfo, Country, PromoCode } from "../../types/detailsFormTypes";
+import useFetchUserCountry from "../../helpers/useFetchUserCountry";
+import { getSessionId } from "../../http/sessionService";
 
 interface DetailsFormProps {
   setDelivery: (delivery: DeliveryInfo) => void;
@@ -164,7 +164,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
   };
 
   return (
-    <form className="form form--information" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form form--checkout" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__inner">
         <div className="form__head">
           <div className="form__title-wrapper">

@@ -1,4 +1,4 @@
-import lock from "../assets/icon-padlock.svg";
+import lock from "../../assets/icon-padlock.svg";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -10,10 +10,10 @@ import {
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { getSessionId } from "../http/sessionService";
+import { getSessionId } from "../../http/sessionService";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../state/store";
-import { clearCart } from "../state/cart/cartSlice";
+import { AppDispatch } from "../../state/store";
+import { clearCart } from "../../state/cart/cartSlice";
 
 
 const stripePromise = loadStripe('pk_test_51Puv0A00mgxSrJbWJhlocZak9KrcFDYou6mNhKTCfOL4aNmRwJTRxPFjahrKH1Kh1vVTaoNoX0Ger3z0Q2kYU8Wg00re94xIbn');

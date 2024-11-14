@@ -1,7 +1,7 @@
 import Steps from "../components/Steps";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import PaymentForm from "../components/PaymentForm";
+import PaymentForm from "../components/Payment/PaymentForm";
 import { useEffect, useState } from "react";
 import { getSession } from "../http/sessionService";
 
