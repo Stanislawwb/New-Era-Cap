@@ -14,7 +14,7 @@ const Steps: React.FC = () => {
 
   const handleStepTwo = (): React.ReactNode => {
     if (
-      location.pathname === "/information" ||
+      location.pathname === "/checkout" ||
       location.pathname === "/login"
     ) {
       return "2";
@@ -41,12 +41,12 @@ const Steps: React.FC = () => {
           <li>
             <span
               className={`${
-                location.pathname === "/information" ? "is-active" : ""
+                location.pathname === "/checkout" ? "is-active" : ""
               } ${location.pathname === "/payment" ? "is-checked" : ""}`}
             >
               {handleStepTwo()}
             </span>
-            Information
+            Checkout
           </li>
 
           <li>

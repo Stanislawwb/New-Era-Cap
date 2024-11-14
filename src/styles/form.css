@@ -292,7 +292,7 @@
 	}
 }
 
-.form--information {
+.form--checkout {
 	.form__radio + .form__radio {
 		margin-top: 10px;
 	}

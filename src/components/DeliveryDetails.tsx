@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FormData, DeliveryInfo } from "..//types/detailsFormTypes";
 
 export interface DeliveryDetailsProps {
@@ -47,6 +48,10 @@ const DeliveryDetails: React.FC<DeliveryDetailsProps> = ({ details, deliveryMeth
           </>
         )}
       </div>
+
+      <Link to="/checkout" className="sidebar__delivery-info-link">
+        Edit Delivery Details
+      </Link>
     </div>
   );
 };
