@@ -5,6 +5,8 @@ import { createSession, getSessionById, updateSession } from "../../http/session
 import { FormData, DeliveryInfo, Country, PromoCode } from "../../types/detailsFormTypes";
 import useFetchUserCountry from "../../helpers/useFetchUserCountry";
 import { getSessionId } from "../../http/sessionService";
+import { useSelector } from "react-redux";
+import { RootState } from "../../state/store";
 
 interface DetailsFormProps {
   setDelivery: (delivery: DeliveryInfo) => void;
@@ -23,6 +25,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
     method: "standard",
     price: 0,
   });
+
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const countryName = e.target.value;
@@ -145,6 +149,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
             price: localDelivery.price,
           },
         },
+        cartItems,
         codeName: appliedPromoCode.name || null,  
         discountAmount: appliedPromoCode.amount || 0,
         discountInPercenTage: appliedPromoCode.discount,
@@ -266,145 +271,123 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ setDelivery, appliedPromoCode
             </div>
           </div>
 
-          {!isManualAddress && (
+          <>
+            {!showCompany && (
+              <div
+                className="form__group"
+                onClick={() => setShowCompany(!showCompany)}
+              >
+                <button type="button">+ Add Company</button>
+              </div>
+            )}
+
+            {showCompany && (
+              <div className="form__group hidden">
+                <div className="form__row">
+                  <label htmlFor="company">
+                    Company<span>(optional)</span>
+                  </label>
+
+                  <input type="text" name="company" id="company" />
+                </div>
+              </div>
+            )}
+
             <div className="form__group">
               <div className="form__row">
-                <label htmlFor="addressFinder">
-                  Address Finder<span className="required">*</span>
+                <label htmlFor="address">
+                  House Number and Street Name
+                  <span className="required">*</span>
                 </label>
 
                 <input
                   type="text"
-                  id="addressFinder"
-                  placeholder="Search by postcode, street or address"
-                  {...register("addressFinder", { required: !isManualAddress })}
+                  id="address"
+                  {...register("address", { required: isManualAddress })}
                 />
-                {errors.addressFinder && (
-                  <span className="error">Address finder is required</span>
+                {errors.address && (
+                  <span className="error">Address is required</span>
                 )}
               </div>
             </div>
-          )}
 
-          {isManualAddress && (
-            <>
-              {!showCompany && (
-                <div
-                  className="form__group"
-                  onClick={() => setShowCompany(!showCompany)}
+            {!showAddressLine2 && (
+              <div className="form__group">
+                <button
+                  type="button"
+                  onClick={() => setShowAddressLine2(!showAddressLine2)}
                 >
-                  <button type="button">+ Add Company</button>
-                </div>
-              )}
+                  + Add Address Line 2
+                </button>
+              </div>
+            )}
 
-              {showCompany && (
-                <div className="form__group hidden">
-                  <div className="form__row">
-                    <label htmlFor="company">
-                      Company<span>(optional)</span>
-                    </label>
-
-                    <input type="text" name="company" id="company" />
-                  </div>
-                </div>
-              )}
-
+            {showAddressLine2 && (
               <div className="form__group">
                 <div className="form__row">
-                  <label htmlFor="address">
-                    House Number and Street Name
-                    <span className="required">*</span>
+                  <label htmlFor="address-2">
+                    Address Line 2<span> (optional)</span>
                   </label>
 
-                  <input
-                    type="text"
-                    id="address"
-                    {...register("address", { required: isManualAddress })}
-                  />
-                  {errors.address && (
-                    <span className="error">Address is required</span>
-                  )}
+                  <input type="text" name="address-2" id="address-2" />
                 </div>
               </div>
+            )}
 
-              {!showAddressLine2 && (
-                <div className="form__group">
-                  <button
-                    type="button"
-                    onClick={() => setShowAddressLine2(!showAddressLine2)}
-                  >
-                    + Add Address Line 2
-                  </button>
-                </div>
-              )}
+            <div className="form__group">
+              <div className="form__row">
+                <label htmlFor="city">
+                  Town/City
+                  <span className="required">*</span>
+                </label>
 
-              {showAddressLine2 && (
-                <div className="form__group">
-                  <div className="form__row">
-                    <label htmlFor="address-2">
-                      Address Line 2<span> (optional)</span>
-                    </label>
-
-                    <input type="text" name="address-2" id="address-2" />
-                  </div>
-                </div>
-              )}
-
-              <div className="form__group">
-                <div className="form__row">
-                  <label htmlFor="city">
-                    Town/City
-                    <span className="required">*</span>
-                  </label>
-
-                  <input
-                    type="text"
-                    id="city"
-                    {...register("city", { required: isManualAddress })}
-                  />
-                  {errors.city && (
-                    <span className="error">City is required</span>
-                  )}
-                </div>
+                <input
+                  type="text"
+                  id="city"
+                  {...register("city", { required: isManualAddress })}
+                />
+                {errors.city && (
+                  <span className="error">City is required</span>
+                )}
               </div>
+            </div>
 
-              <div className="form__group">
-                <div className="form__row">
-                  <label htmlFor="state">
-                    County/State <span>(optional)</span>
-                    <span className="required">*</span>
-                  </label>
+            <div className="form__group">
+              <div className="form__row">
+                <label htmlFor="state">
+                  County/State <span>(optional)</span>
+                  <span className="required">*</span>
+                </label>
 
-                  <input
-                    type="text"
-                    id="state"
-                    {...register("state", { required: isManualAddress })}
-                  />
-                  {errors.state && (
-                    <span className="error">State is required</span>
-                  )}
-                </div>
+                <input
+                  type="text"
+                  id="state"
+                  {...register("state", { required: isManualAddress })}
+                />
+                {errors.state && (
+                  <span className="error">State is required</span>
+                )}
               </div>
+            </div>
 
-              <div className="form__group">
-                <div className="form__row">
-                  <label htmlFor="postcode">
-                    Postcode
-                    <span className="required">*</span>
-                  </label>
+            <div className="form__group">
+              <div className="form__row">
+                <label htmlFor="postcode">
+                  Postcode
+                  <span className="required">*</span>
+                </label>
 
-                  <input
-                    type="text"
-                    id="postcode"
-                    {...register("postcode", { required: isManualAddress })}
-                  />
-                  {errors.postcode && (
-                    <span className="error">Postcode is required</span>
-                  )}
-                </div>
+                <input
+                  type="text"
+                  id="postcode"
+                  {...register("postcode", { required: isManualAddress })}
+                />
+                {errors.postcode && (
+                  <span className="error">Postcode is required</span>
+                )}
               </div>
-            </>
-          )}
+            </div>
+          </>
 
           <div className="form__group">
             <button
