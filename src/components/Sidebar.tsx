@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DeliveryDetails from "./DeliveryDetails";
 import useSectionHeight from "../helpers/useSectionHeight";
 import usePromoCode from "../helpers/usePromoCode";
@@ -30,7 +30,6 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
   const navigate = useNavigate();
 
   const [error, setError] = useState<boolean>(false);
-  const [subTotal, setSubTotal] = useState<number>(0);
   const [total, setTotal] = useState<string>("0");
   const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfo>({ method: "", price: 0 });
   const [formData, setFormData] = useState<FormData | null>(null);
@@ -103,10 +102,9 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
     saveSessionData();
   }, [formData, promoCode]);
   
-  useEffect(() => {
-    const finalSubTotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    setSubTotal(finalSubTotal);
-  }, [cartItems]);
+  const subTotal = useMemo(() => {
+    return cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  }, [cartItems]);  
 
   useEffect(() => {
     let finalTotal = subTotal;
@@ -369,24 +367,26 @@ const Sidebar: React.FC<SidebarProps> = ({ delivery, setAppliedPromoCode, setPar
                       {item.product.price.toFixed(2).replace(".", ",")}
                     </b>
 
-                    <div className="product__actions">
-                      <div className="product__quantity">
-                        <button onClick={() => dispatch(decreaseQuantity(item.product))} className="product__quantity-item">-</button>
+                    {location.pathname === "/checkout" && (
+                      <div className="product__actions">
+                        <div className="product__quantity">
+                          <button onClick={() => dispatch(decreaseQuantity(item.product))} className="product__quantity-item">-</button>
 
-                        <span className="product__quantity-item">{item.quantity}</span>
+                          <span className="product__quantity-item">{item.quantity}</span>
 
-                        <button onClick={() => dispatch(increaseQuantity(item.product))} className="product__quantity-item">+</button>
+                          <button onClick={() => dispatch(increaseQuantity(item.product))} className="product__quantity-item">+</button>
+                        </div>
+
+                        <button 
+                          onClick={() => {
+                            dispatch(removeFromCart(item.product));
+                            
+                            if(productsInCartCount === 1) {
+                              navigate('/');
+                            }
+                          }} className="product__remove">Remove</button>
                       </div>
-
-                      <button 
-                        onClick={() => {
-                          dispatch(removeFromCart(item.product));
-                          
-                          if(productsInCartCount === 1) {
-                            navigate('/');
-                          }
-                        }} className="product__remove">Remove</button>
-                    </div>
+                    )}
                   </div>
                 </div>
               ))}
