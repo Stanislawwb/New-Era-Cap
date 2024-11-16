@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../state/store";
 import { setProducts } from "../state/products/productsSlice";
 import { useSelector } from "react-redux";
 import { setSortOption } from "../state/products/productsSlice";
+import { toggleSidebar } from "../state/products/productsSlice";
 
 const Homepage = () => {
     const {products, loading} = useFetchProducts();
@@ -31,8 +32,14 @@ const Homepage = () => {
             <ProductsHeader/>
 
             <div className="section__content">
-                <div className={`section__sidebar ${isOpen ? '' : 'hidden'}`}>
-                    <Filters />
+                <div className={`section__sidebar ${isOpen ? 'active' : 'hidden'}`}>
+                    <div className="section__sidebar-head">
+                        <h4>Filter</h4> 
+
+                        <Filters />
+                    </div>
+
+                    <button onClick={() => dispatch(toggleSidebar())} className="show-results">Show Results</button>
                 </div>
 
                 { loading ? (

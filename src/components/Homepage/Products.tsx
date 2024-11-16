@@ -15,7 +15,6 @@ const Products: React.FC = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
 
-	const cart = useSelector((state: RootState) => state.cart.cartItems);
 
 	const handleLoadMore = () => {
 		setVisibleProductsCount((prev) => {
@@ -24,7 +23,7 @@ const Products: React.FC = () => {
 			return newCount > filteredProducts.length ? filteredProducts.length : newCount;
 		});	
 	}
-
+	
 	const slicedProducts = filteredProducts.slice(0, visibleProductsCount);
 
 	const handleAddToCart = (product: Product) => {
@@ -42,58 +41,58 @@ const Products: React.FC = () => {
 			setNotification(null);
 		}, 4000)
 	}
-
-  return (
-    <div className='section__inner'>
-		{
-			notification && (
-				<div className="notification">
-					{notification}
-				</div>
-			)
-		}
-
-		<div className="section__products" style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}>
+	
+  	return (
+		<div className='section__inner'>
 			{
-				slicedProducts.map((product) => {
-					return (
-						<div className="section__product" key={product.id}>
-							<div className="section__image">
-								<img src={product.imageUrl} alt="" />
-							</div>
-							
-							<div className="section__content">
-								<div className="section__info">
-									<span>{product.type}</span>
-									
-									<span className='section__product-name'>{product.name}</span>
-									
-									<span>{product.currency} {product.price.toFixed(2)}</span>
+				notification && (
+					<div className="notification">
+						{notification}
+					</div>
+				)
+			}
+
+			<div className="section__products" style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}>
+				{
+					slicedProducts.map((product) => {
+						return (
+							<div className="section__product" key={product.id}>
+								<div className="section__image">
+									<img src={product.imageUrl} alt="" />
 								</div>
+								
+								<div className="section__content">
+									<div className="section__info">
+										<span>{product.type}</span>
+										
+										<span className='section__product-name'>{product.name}</span>
+										
+										<span>{product.currency} {product.price.toFixed(2)}</span>
+									</div>
 
-								<button 
-									onClick={() => handleAddToCart(product)}
-									disabled={isButtonDisabled[product.id]}
-									className={isButtonDisabled[product.id] ? 'button-disabled' : ''}
-								>
-									{ isButtonDisabled[product.id]  ? 'Adding...' :  'Add To Cart'}
-								</button>
+									<button 
+										onClick={() => handleAddToCart(product)}
+										disabled={isButtonDisabled[product.id]}
+										className={isButtonDisabled[product.id] ? 'button-disabled' : ''}
+									>
+										{ isButtonDisabled[product.id]  ? 'Adding...' :  'Add To Cart'}
+									</button>
+								</div>
 							</div>
-						</div>
-					);
-				})
-			}      
-		</div>
+						);
+					})
+				}      
+			</div>
 
-		<div className="section__actions">
-			{ visibleProductsCount < filteredProducts.length && (
-				<button onClick={handleLoadMore}>Load More</button>
-			)}
+			<div className="section__actions">
+				{ visibleProductsCount < filteredProducts.length && (
+					<button onClick={handleLoadMore}>Load More</button>
+				)}
 
-			<span>Showing {slicedProducts.length} of {filteredProducts.length} Products</span>
+				<span>Showing {slicedProducts.length} of {filteredProducts.length} Products</span>
+			</div>
 		</div>
-    </div>
-  )
+	)
 }
 
 export default Products

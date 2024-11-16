@@ -17,7 +17,7 @@ const initialState: ProductsState = {
     filteredProducts: [],
     loading: false,
     sortOption: 'title-ascending',
-    isOpen: true,
+    isOpen: window.innerWidth > 768,
     gridColumns: 3,
     selectedTypes: [],
     selectedColors: [],

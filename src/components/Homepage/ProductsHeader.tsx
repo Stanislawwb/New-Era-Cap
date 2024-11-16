@@ -8,11 +8,10 @@ const ProductsHeader: React.FC = () => {
     const selectedTypeCount          = useSelector((state: RootState) => state.products.selectedTypes.length);
     const selectedColorCount         = useSelector((state: RootState) => state.products.selectedColors.length);
     const gridColumnCount            = useSelector((state: RootState) => state.products.gridColumns);
-    
+
     const dispatch = useDispatch<AppDispatch>();
 
     const totalSelectedFilters = selectedColorCount + selectedTypeCount;
-    
 
     return (
         <div className="section__header">
@@ -21,8 +20,8 @@ const ProductsHeader: React.FC = () => {
             <p>We're the original headwear brand. Presenting our iconic collection of New Era caps, beanies and bucket hats. We have a cap for every style, including 59FIFTY fitted caps, 9FIFTY snapbacks, 9FORTY adjustable caps, 39THIRTY stretch-fit, and the 9TWENTY cap. You can shop by colour, team, sport or collection with our exclusive range of headwear styles.</p>
 
             <div className="section__bar">
-                <div className='section__bar-button'>
-                    <button onClick={() => dispatch(toggleSidebar())}>
+                <div className='section__bar-button' onClick={() => dispatch(toggleSidebar())}>
+                    <button>
                         <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <line y1="2.5" x2="24" y2="2.5" stroke="currentColor"></line>
                             <rect x="4.5" y="0.5" width="3" height="4" stroke="currentColor" className="rect-top"></rect>
